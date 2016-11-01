@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/thearnavgarg/rewind-remind-game2#readme",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.2",
@@ -24,5 +25,9 @@
     "express-sessions": "^1.0.6",
     "mongoose": "^4.6.5",
     "passport": "^0.3.2"
+  },
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "nodemon": "^1.11.0"
   }
 }
