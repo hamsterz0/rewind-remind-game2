@@ -16,11 +16,16 @@
 
         <button type="submit">Login</button> 
     </form>
+    <br>
 
     <% if (typeof error !== 'undefined') { %>
         
         <p><%= error %></p>
 
     <% } %>
+    <br>
+
+    <a href="/register"> Create a new account </a> <br>
+    <a href="/retrievepass"> Forgot my password </a> 
 </body>
 </html>
