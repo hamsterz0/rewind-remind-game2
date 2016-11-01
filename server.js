@@ -46,7 +46,6 @@ app.use(function(req, res, next) {
         }, function(err, user) {
             if(user) {
                 req.user = user;
-                console.log(req.user.email);
                 delete req.user.password;
                 req.session.user = req.user.email;
                 res.locals.user = req.user;
@@ -59,7 +58,6 @@ app.use(function(req, res, next) {
 });
 
 function requireLogin(req, res, next) {
-    console.log("------->" + req.user);
     if(!req.user) {
         res.redirect('/login');
     } else {
@@ -102,28 +100,94 @@ app.get('/retrievepass', function(req, res) {
 //----------------POST REQUESTS--------------------
 app.post('/register', function(req, res) {
 
-    req.body.password = encrypt(req.body.password);
+     models.stype.findOne({
+        key: 'secret_key'
+    }).then(function(data) {
+        var age = req.body.age;
+
+        if(data.DE > data.SGE) {
+            req.body.stype = 'SGE';
+            data.SGE += 1;
+            if(age > 50) {
+                data.SGEO += 1;
+            } else {
+                data.SGEY += 1;
+            }
+        } else if(data.SGE > data.DE){
+            req.body.stype = 'DE';
+            data.DE += 1;
+            if(age > 50) {
+                data.DEO += 1;
+            } else {
+                data.DEY += 1;
+            }
+        } else {
+            if(age < 50) {
+                if(data.DEY >= data.SGEY) {
+                    req.body.stype = 'SGE';
+                    data.SGEY += 1;
+                    data.SGE += 1;
+                } else {
+                    req.body.stype = 'DE';
+                    data.DE += 1;
+                    data.DEY += 1;
+                }
+            } else {
+                 if(data.DEO >= data.SGEO) {
+                    req.body.stype = 'SGE';
+                    data.SGEO += 1;
+                    data.SGE += 1;
+                } else {
+                    req.body.stype = 'DE';
+                    data.DE += 1;
+                    data.DEO += 1;
+                }
+            }
+        }
+
+        console.log(data._id);
+        console.log(data.SGE);
+
+        models.stype.update({_id: data._id}, {
+            $set: {
+                key:    data.key,
+                SGE:    data.SGE,
+                SGEY:   data.SGEY,
+                SGEO:   data.SGEO,
+                DE:     data.DE,
+                DEY:    data.DEY,
+                DEO:    data.DEO
+            }
+        }, function(err, result) {
+
+            req.body.password = encrypt(req.body.password);
     
-    var userAuth = new models.auth({
-        firstname:  req.body.firstname,
-        lastname:   req.body.lastname,
-        email:      req.body.email,
-        password:   req.body.password
+            var userAuth = new models.auth({
+                firstname:  req.body.firstname,
+                lastname:   req.body.lastname,
+                email:      req.body.email,
+                password:   req.body.password,
+                stype:      req.body.stype,
+                age:        req.body.age
+            });
+
+            userAuth.save(function(err) {
+                if(err) {
+                    var error = 'Sorry, some internal error has occurred.';
+                    
+                    if(err.code == 11000) {
+                        error = 'email has alread been taken, please try again.'
+                    }
+                    res.render('register.ejs', {error: error});
+                } else {
+                    console.log('data has been saved');
+                    res.redirect('/dashboard');
+                }
+            });       
+        });
     });
 
-    userAuth.save(function(err) {
-        if(err) {
-            var error = 'Sorry, some internal error has occurred.';
-            
-            if(err.code == 11000) {
-                error = 'email has alread been taken, please try again.'
-            }
-            res.render('register.ejs', {error: error});
-        } else {
-            console.log('data has been saved');
-            res.redirect('/dashboard');
-        }
-    });
+    
 });
 
 app.post('/login', function(req, res) {
@@ -149,6 +213,7 @@ app.post('/login', function(req, res) {
 
 app.post('/retrievepass', function(req, res) {
 
+
     models.auth.findOne({
         email: req.body.email
     }).then(function(user) {
@@ -170,16 +235,16 @@ app.post('/retrievepass', function(req, res) {
             transporter.sendMail(mailOptions, function(error, info){
                 if(error){
                     console.log(error);
-                    render('retrievepass.ejs', {error: 'Internal Server Error. Sorry for the inconvience.'});
+                    res.render('retrievepass.ejs', {error: 'Internal Server Error. Sorry for the inconvience.'});
                 }else{
                     console.log('Message sent: ' + info.response);
-                    render('retrievepass.ejs', {error: 'Check Email'});
+                    res.render('retrievepass.ejs', {error: 'Check Email'});
                     // res.render('successful.ejs', {mssg: 'Check your email'});
                 };
             });
 
         } else {
-            render('retrievepass.ejs', {error: 'Invalid email'});
+            res.render('retrievepass.ejs', {error: 'Invalid email'});
         }
     });
 

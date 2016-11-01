@@ -17,6 +17,14 @@ var authSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    stype: {
+        type: String,
+        required: true
+    },
+    age: {
+        type: Number,
+        required: true
     }
 });
 
