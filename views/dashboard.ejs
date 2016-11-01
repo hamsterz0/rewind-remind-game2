@@ -3,16 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Rewind-Remind</title>
+
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
     
     <% user.firstname[0] = user.firstname[0].toUpperCase(); user.lastname[0] = user.lastname[0].toUpperCase() %>
-    <h1>Welcome <%= user.firstname + ' ' + user.lastname %> !</h1>
+    <h1 class="text-center page-header">Welcome <%= user.firstname + ' ' + user.lastname %> !</h1>
     
-    <h3>Week 1</h3>
+    <!--<h3>Week 1</h3>
     <h3>Week 2</h3>
-    <h3>Week 2</h3>
+    <h3>Week 2</h3>-->
+
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Week 1</td>
+                    <td><button>Game 1</button></td>   
+                    <td><button>Game 2</button></td>
+                    <td><button>Game 3</button></td>
+                </tr>
+                <tr>
+                    <td>Week 2</td>
+                    <td><button>Game 1</button></td>
+                    <td><button>Game 2</button></td>
+                    <td><button>Game 3</button></td>
+                </tr>
+                <tr>
+                    <td>Week 3</td>
+                    <td><button>Game 1</button></td>
+                    <td><button>Game 2</button></td>
+                    <td><button>Game 3</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <a href="/logout">Logout</a>
+
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -71,6 +71,10 @@ function requireLogin(req, res, next) {
 
 //-------------GET REQUESTS--------------------
 app.get('/', function(req, res) {
+    res.redirect('/welcome');
+});
+
+app.get('/welcome', function(req, res) {
     res.render('index.ejs');
 });
 
