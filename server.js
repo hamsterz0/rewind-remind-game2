@@ -37,6 +37,34 @@ app.use(session({
     cookieName: 'session',
     secret: 'some_long_random_string'
 }));
+app.use(function(req, res, next) {
+    if(req.session && req.session.user) {
+        
+        models.auth.findOne({
+            email: req.session.user
+        }, function(err, user) {
+            if(user) {
+                req.user = user;
+                console.log(req.user.email);
+                delete req.user.password;
+                req.session.user = req.user.email;
+                res.locals.user = req.user;
+            }
+            next();
+        });
+    } else {
+        next();
+    }
+});
+
+function requireLogin(req, res, next) {
+    console.log("------->" + req.user);
+    if(!req.user) {
+        res.redirect('/login');
+    } else {
+        next();
+    }
+}
 
 //routes
 
@@ -58,24 +86,9 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-app.get('/dashboard', function(req, res) {
-    if(req.session && req.session.user) {
-        
-        models.auth.findOne({
-            email: req.session.user
-        }, function(err, user) {
-            if(!user) {
-                req.session.reset();
-                res.redirect('/login');
-            } else {
-                res.locals.user = user;
-                delete res.locals.user.password;
-                res.render('dashboard.ejs');
-            }
-        });
-    } else {
-        res.redirect('/login');
-    }
+app.get('/dashboard', requireLogin, function(req, res) {
+    
+    res.render('dashboard.ejs');
 });
 
 //----------------POST REQUESTS--------------------
