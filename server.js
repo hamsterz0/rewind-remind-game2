@@ -5,7 +5,8 @@ var express         = require('express'),
     mongoose        = require('mongoose'),
     models          = require('./models/index.js'),
     session         = require('client-sessions'),
-    crypto          = require('crypto');
+    crypto          = require('crypto'),
+    nodemailer      = require('nodemailer');
     
 
 
@@ -87,8 +88,11 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/dashboard', requireLogin, function(req, res) {
-    
     res.render('dashboard.ejs');
+});
+
+app.get('/retrievepass', function(req, res) {
+    res.render('retrievepass.ejs');
 });
 
 //----------------POST REQUESTS--------------------
@@ -137,6 +141,44 @@ app.post('/login', function(req, res) {
     }).catch(function(err) {
         res.render('login.ejs', {error: 'Internal Server Error'});
     });
+});
+
+app.post('/retrievepass', function(req, res) {
+
+    models.auth.findOne({
+        email: req.body.email
+    }).then(function(user) {
+        if(user) {
+            var transporter = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'labheracleia',
+                    pass: 'blackcatpassillusion'
+                }
+            });
+            var text = "Hello " + user.firstname + ", \n" + "Your password is: " + decrypt(user.password);
+            var mailOptions = {
+                from: 'thearnavgarg@gmail.com',
+                to: user.email,
+                subject: 'Lost Password',
+                text: text
+            };
+            transporter.sendMail(mailOptions, function(error, info){
+                if(error){
+                    console.log(error);
+                    res.send('Internel server error. Sorry for the inconvience');
+                }else{
+                    console.log('Message sent: ' + info.response);
+                    res.send('Check your email');
+                    // res.render('successful.ejs', {mssg: 'Check your email'});
+                };
+            });
+
+        } else {
+            render('retrievepass.ejs', {error: 'Invalid email'});
+        }
+    });
+
 });
 
 

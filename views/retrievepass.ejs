@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rewind-Remind</title>
+</head>
+<body>
+    
+    <form action="/retrievepass" method="post">
+        <p>Enter your email: </p>
+        <input type="text" name="email">
+        <br><br>
+        <button type="submit">Send email</button>
+    </form>
+
+    <br><br>
+
+    <% if(typeof error !== 'undefined') { %>
+        <p><%= error %></p> 
+    <% } %>
+
+</body>
+</html>
