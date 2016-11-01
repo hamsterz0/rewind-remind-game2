@@ -166,10 +166,10 @@ app.post('/retrievepass', function(req, res) {
             transporter.sendMail(mailOptions, function(error, info){
                 if(error){
                     console.log(error);
-                    res.send('Internel server error. Sorry for the inconvience');
+                    render('retrievepass.ejs', {error: 'Internal Server Error. Sorry for the inconvience.'});
                 }else{
                     console.log('Message sent: ' + info.response);
-                    res.send('Check your email');
+                    render('retrievepass.ejs', {error: 'Check Email'});
                     // res.render('successful.ejs', {mssg: 'Check your email'});
                 };
             });
