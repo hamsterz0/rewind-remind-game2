@@ -13,16 +13,13 @@
         html, body{
             height: 100%;
             background-color: #3273DC;
-            padding: 10px;
+            padding: 20px;
         }
 
         .main-col{
             height: 100%;
         }
 
-        .inner-col {
-            margin: 0 auto;
-        }
         .main-box {
             margin: 20px;
             background-color: white;
@@ -31,7 +28,7 @@
         .w-col {
             height: 27%;
         }
-        .column .box-col{
+        .box-col{
             
             margin: auto;
         }
@@ -50,21 +47,25 @@
     <% user.firstname = user.firstname[0].toUpperCase() + user.firstname.substring(1, user.firstname.length) %>
     <% user.lastname = user.lastname[0].toUpperCase() + user.lastname.substring(1, user.lastname.length) %>
 
-    <div class="columns main-col">
+    <div class="row main-col">
 
-        <div class="column box is-one-quarter inner-col" style="margin: 10px" >
-            <h1 class="title page-header text-center">Info</h1>
-            <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa est pariatur dolorum, accusantium quaerat iusto quo consequatur explicabo architecto laboriosam vel veniam provident laborum velit vero quae eius eveniet tempore minima amet harum voluptatum. Blanditiis sequi reiciendis ratione distinctio exercitationem quam laborum numquam qui repudiandae, voluptates optio sapiente rerum quos modi quibusdam sed saepe nihil quod eum odio! Tempora, ipsa, accusamus. Asperiores labore libero blanditiis tempora ipsam natus harum, pariatur aspernatur excepturi unde! Consequatur tenetur, culpa qui voluptatibus voluptate aspernatur magni minima iusto sapiente sint pariatur commodi nulla quas quibusdam fuga quae nesciunt, voluptas adipisci animi, minus consequuntur soluta nostrum!</p>
+        <div class="col-md-3 box" style="margin: 10px" >
+            <h1 class="page-header text-center">Info</h1>
+            <h2>Game Details</h2>
+            <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat id a ab illo repellat ipsa nostrum quo ipsam adipisci quasi. Laboriosam ducimus consequatur quaerat minus ab sit voluptatibus obcaecati expedita placeat eligendi, aspernatur beatae corrupti cumque perspiciatis voluptas minima veritatis! Odit earum hic facilis aut minima quae debitis, quia molestiae.</p>
 
+            <br>
+            <h2>Research Details</h2>
+            <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat id a ab illo repellat ipsa nostrum quo ipsam adipisci quasi. Laboriosam ducimus consequatur quaerat minus ab sit voluptatibus obcaecati expedita placeat eligendi, aspernatur beatae corrupti cumque perspiciatis voluptas minima veritatis! Odit earum hic facilis aut minima quae debitis, quia molestiae.</p>
+
+             <br><br><br>
             <div class="text-center is-clearfix">
                 <a class="button is-large is-danger is-fullwidth" id="logout" href="/logout">Logout</a>
             </div>    
         </div>
 
-        <div class="column box text-center" style="margin: 10px;">
-            <h1 class="title page-header text-center">Dashboard</h1>
-            
-            <br><br>
+        <div class="col-md-8 box text-center main-col" style="margin: 10px;">
+            <h1 class="page-header text-center">Dashboard</h1>
             
             <div class="columns w-col" style="border-bottom: 1px solid black">
                 <div class="column box-col">
