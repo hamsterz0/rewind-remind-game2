@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,5 +35,100 @@
     <% } %>
 
 
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rewind-Remind</title>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+
+    <style>
+         html, body, .container-table {
+            height: 100%;
+            background-color: #3273DC;
+        }
+        .container-table {
+            display: table;
+        }
+        .vertical-center-row {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .outline {
+             padding: 15px;
+             background-color: white;
+             box-shadow: 10px 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container container-table">
+        <div class="row vertical-center-row">
+            <div class="col-md-4 col-md-offset-4 outline">
+
+                <h1 class="title text-center">Register</h1>
+                
+                <form action="/register" method="post" style="padding: 10px;">
+
+                    <label class="label" style="color: black; font-size: 17px;">Firstname</label>
+                    <p class="control">
+                        <input class="input" type="text" placeholder="Enter Firstname" name="firstname">
+                    </p>
+                    <br>
+
+                    <label class="label" style="color: black; font-size: 17px;">Lastname</label>
+                    <p class="control">
+                        <input class="input" type="text" placeholder="Enter Lastname" name="lastname">
+                    </p>
+                    <br>
+    
+                    <label class="label" style="color: black; font-size: 17px;">Email</label>
+                    <p class="control">
+                        <input class="input" type="text" placeholder="Enter Email" name="email">
+                    </p>
+                    <br>
+                    
+                    <p class="label" style="color: black; font-size: 17px;">Password</p>
+                    <p class="control">
+                        <input class="input" type="password" placeholder="Enter Password" name="password">
+                    </p>
+                    <br>
+
+                    <label class="label" style="color: black; font-size: 17px;">Age</label>
+                    <p class="control">
+                        <input class="input" type="number" placeholder="Enter Age" name="age">
+                    </p>
+                    <br>
+
+                    <p class="control text-center">
+                        <button class="button is-info is-medium is-outlined">Submit</button>
+                    </p>
+
+                    <!-- <label class="label">Password</label>
+                    <input type="password" name="password">
+
+                    <button type="submit">Login</button> --> 
+                </form>
+                <br>
+
+                <% if (typeof error !== 'undefined') { %>
+                    
+                    <p class="control">
+                        <p class="help is-danger text-center" style="font-size: 14px"><%= error %></p>
+                    </p>
+                    <br>
+                <% } %>
+            
+        </div>
+    </div>
+    
+     
 </body>
 </html>

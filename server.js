@@ -100,6 +100,9 @@ app.get('/retrievepass', function(req, res) {
 //----------------POST REQUESTS--------------------
 app.post('/register', function(req, res) {
 
+    console.log('-------------');
+    console.log('-->' + req.body.firstname);
+
      models.stype.findOne({
         key: 'secret_key'
     }).then(function(data) {

@@ -4,18 +4,66 @@
     <meta charset="UTF-8">
     <title>Rewind Remind</title>
     <script src="../bower_components/angular/angular.min.js"></script>
-    
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
+
+    <style>
+
+    .vcontainer {
+        min-height: 10em;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    </style>
+
 </head>
 <body ng-app="myApp" ng-controller="myController">
-    <h1> Welcome to Rewind Remind </h1>
+
+    <section class="hero is-info is-fullheight">
+        <div class="hero-body text-center">
+            <div class="container">
+                <h1 class="title is-1">Rewind-Remind</h1>
+                <h2 class="subtitle is-4">Cognitive Memory Assesment</h2>
+
+                <a href="/login" class="button is-info is-large is-inverted" style="margin-right: 5px">Login</a>
+                <a href="/register" class="button is-info is-large is-inverted">Register</a>
+            </div>
+        </div>
+    </section>
+    <!-- <h1> Welcome to Rewind Remind </h1>
     <p>Please <a href="/login">login</a> or <a href="/register">register</a> to continue</p>
-    <p>{{ readValue }}</p>
+    <p>{{ readValue }}</p -->
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            <strong>Rewind-Remind</strong> by <a href="http://heracleia.uta.edu/">Heracleia Lab</a>
+          </p>
+        </div>
+      </div>
+    </footer>
     
     
+    <!-- Angular JS -->
     <script>
 
         var app = angular.module('myApp', []);
         app.controller('myController', function($scope) {
+        });
+
+    </script>
+
+    <!-- A little bit of jquery -->
+    <script>
+
+        $(function() {
+
+            $('.container').animate({
+                right: '200px';
+            });
         });
 
     </script>
