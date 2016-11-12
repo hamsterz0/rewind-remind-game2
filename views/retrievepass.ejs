@@ -3,22 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Rewind-Remind</title>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+
+    <style>
+         html, body, .container-table {
+            height: 100%;
+            background-color: #3273DC;
+        }
+        .container-table {
+            display: table;
+        }
+        .vertical-center-row {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .outline {
+             padding: 15px;
+             background-color: white;
+             box-shadow: 10px 10px;
+        }
+    </style>
 </head>
 <body>
+
+    <div class="container container-table">
+        <div class="row vertical-center-row">
+            <div class="col-md-4 col-md-offset-4 outline">
+
+                <h1 class="title text-center">Login</h1>
+                
+                <form action="/retrievepass" method="post" style="padding: 10px;">
     
-    <form action="/retrievepass" method="post">
-        <p>Enter your email: </p>
-        <input type="text" name="email">
-        <br><br>
-        <button type="submit">Send email</button>
-    </form>
+                    <label class="label" style="color: black; font-size: 17px;">Enter your email</label>
+                    <p class="control">
+                        <input class="input" type="text" placeholder="Enter Email" name="email">
+                    </p>
+                    <br>
+                    <p class="control text-center"><button class="button is-info is-outlined">Send Email</button></p>
+                </form>
 
-    <br><br>
-
-    <% if(typeof error !== 'undefined') { %>
-        <p><%= error %></p> 
-        <a href="/login">Back to login page</a>
-    <% } %>
-
+                <% if (typeof error !== 'undefined') { %>
+                    
+                    <p class="control">
+                        <p class="help is-danger text-center" style="font-size: 14px"><%= error %></p>
+                        <br>
+                        <p class="text-center"><a href="/login">Back to login page</a></p>
+                    </p>
+                    <br>
+                <% } %>
+                <br>
+            </div>
+            
+        </div>
+    </div>
+    
+     
 </body>
 </html>

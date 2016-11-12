@@ -25,6 +25,10 @@ var authSchema = mongoose.Schema({
     age: {
         type: Number,
         required: true
+    },
+    current: {
+        type: Number,
+        default: 0
     }
 });
 

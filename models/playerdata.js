@@ -1,38 +1,48 @@
 var mongoose = require('mongoose');
 
 var playerDataSchema = mongoose.Schema({
+    userID: Number,
     week1: {
         game1: {
-            type: String
+            time: [],
+            hintTime: []
         },
         game2: {
-            type: String
+            time: [],
+            hintTime: []
         },
         game3: {
-            type: String
+            time: [],
+            hintTime: []
         }
     },
     week2: {
         game1: {
-            type: String
+            time: [],
+            hintTime: []
 
         },
         game2: {
-            type: String
+            time: [],
+            hintTime: []
         },
         game3: {
-            type: String
+            time: [],
+            hintTime: []
         }
     },
     week3: {
         game1: {
-            type: String
+            time: [],
+            hintTime: []
         },
         game2: {
-            type: String
+            time: [],
+            hintTime: []
         },
         game3: {
-            type: String
+            time: [],
+            hintTime: []
         }
     }
 });

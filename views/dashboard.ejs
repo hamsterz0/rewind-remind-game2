@@ -5,43 +5,123 @@
     <title>Rewind-Remind</title>
 
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+
+    <style>
+        
+        html, body{
+            height: 100%;
+            background-color: #3273DC;
+            padding: 10px;
+        }
+
+        .main-col{
+            height: 100%;
+        }
+
+        .inner-col {
+            margin: 0 auto;
+        }
+        .main-box {
+            margin: 20px;
+            background-color: white;
+            box-shadow: 5px 5px;
+        }
+        .w-col {
+            height: 27%;
+        }
+        .column .box-col{
+            
+            margin: auto;
+        }
+
+        #logout {
+            vertical-align: bottom;
+        }
+
+        .info-text {
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
     
-    <% user.firstname[0] = user.firstname[0].toUpperCase(); user.lastname[0] = user.lastname[0].toUpperCase() %>
-    <h1 class="text-center page-header">Welcome <%= user.firstname + ' ' + user.lastname %> !</h1>
-    
-    <!--<h3>Week 1</h3>
-    <h3>Week 2</h3>
-    <h3>Week 2</h3>-->
+    <% user.firstname = user.firstname[0].toUpperCase() + user.firstname.substring(1, user.firstname.length) %>
+    <% user.lastname = user.lastname[0].toUpperCase() + user.lastname.substring(1, user.lastname.length) %>
 
-    <div class="table-responsive">
-        <table class="table">
-            <tbody>
-                <tr>
-                    <td>Week 1</td>
-                    <td><button>Game 1</button></td>   
-                    <td><button>Game 2</button></td>
-                    <td><button>Game 3</button></td>
-                </tr>
-                <tr>
-                    <td>Week 2</td>
-                    <td><button>Game 1</button></td>
-                    <td><button>Game 2</button></td>
-                    <td><button>Game 3</button></td>
-                </tr>
-                <tr>
-                    <td>Week 3</td>
-                    <td><button>Game 1</button></td>
-                    <td><button>Game 2</button></td>
-                    <td><button>Game 3</button></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="columns main-col">
+
+        <div class="column box is-one-quarter inner-col" style="margin: 10px" >
+            <h1 class="title page-header text-center">Info</h1>
+            <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa est pariatur dolorum, accusantium quaerat iusto quo consequatur explicabo architecto laboriosam vel veniam provident laborum velit vero quae eius eveniet tempore minima amet harum voluptatum. Blanditiis sequi reiciendis ratione distinctio exercitationem quam laborum numquam qui repudiandae, voluptates optio sapiente rerum quos modi quibusdam sed saepe nihil quod eum odio! Tempora, ipsa, accusamus. Asperiores labore libero blanditiis tempora ipsam natus harum, pariatur aspernatur excepturi unde! Consequatur tenetur, culpa qui voluptatibus voluptate aspernatur magni minima iusto sapiente sint pariatur commodi nulla quas quibusdam fuga quae nesciunt, voluptas adipisci animi, minus consequuntur soluta nostrum!</p>
+
+            <div class="text-center is-clearfix">
+                <a class="button is-large is-danger is-fullwidth" id="logout" href="/logout">Logout</a>
+            </div>    
+        </div>
+
+        <div class="column box text-center" style="margin: 10px;">
+            <h1 class="title page-header text-center">Dashboard</h1>
+            
+            <br><br>
+            
+            <div class="columns w-col" style="border-bottom: 1px solid black">
+                <div class="column box-col">
+                    <h1>Week 1</h1>
+                </div>
+                <div class="column box-col">
+                    <a class="button is-danger is-large" href="/game">Game 1</a>
+                </div>
+                <div class="column box-col">
+                    <% var disabled; if(user.current < 12) disabled = 'is-disabled'; else disabled = '' %>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 2</a>
+                </div>
+                <div class="column box-col">
+                    <% var disabled; if(user.current < 13) disabled = 'is-disabled'; else disabled = '' %>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 3</a>
+                </div>
+            </div>
+
+            <div class="columns w-col" style="border-bottom: 1px solid black">
+                <div class="column box-col">
+                    <h1>Week 2</h1>
+                </div>
+                <div class="column box-col">
+                    <% var disabled; if(user.current < 21) disabled = 'is-disabled'; else disabled = '' %>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 1</a>
+                </div>
+                <div class="column box-col">
+                    <% var disabled; if(user.current < 22) disabled = 'is-disabled'; else disabled = '' %>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 2</a>
+                </div>
+                <div class="column box-col">
+                    <% var disabled; if(user.current < 23) disabled = 'is-disabled'; else disabled = '' %>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 3</a>
+                </div>
+            </div>
+
+            <div class="columns w-col">
+                <div class="column box-col">
+                    <h1>Week 3</h1>
+                </div>
+                <div class="column box-col">
+                    <% var disabled; if(user.current < 31) disabled = 'is-disabled'; else disabled = '' %>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 1</a>
+                </div>
+                <div class="column box-col">
+                    <% var disabled; if(user.current < 32) disabled = 'is-disabled'; else disabled = '' %>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 2</a>
+                </div>
+                <div class="column box-col">
+                    <% var disabled; if(user.current < 33) disabled = 'is-disabled'; else disabled = '' %>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 3</a>
+                </div>
+            </div>
+
+        </div>
     </div>
-
-    <a href="/logout">Logout</a>
-
+   
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

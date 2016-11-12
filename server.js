@@ -34,6 +34,7 @@ function decrypt(text){
 //middleware
 app.use(bodyParser());
 app.use('/bower_components',express.static(path.join(__dirname+'/bower_components')));
+app.use('/assets',express.static(path.join(__dirname+'/assets')));
 app.use(session({
     cookieName: 'session',
     secret: 'some_long_random_string'
@@ -95,6 +96,9 @@ app.get('/dashboard', requireLogin, function(req, res) {
 
 app.get('/retrievepass', function(req, res) {
     res.render('retrievepass.ejs');
+});
+app.get('/game', function(req, res) {
+    res.render('game.ejs');
 });
 
 //----------------POST REQUESTS--------------------
