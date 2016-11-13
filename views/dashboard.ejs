@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
 
     <style>
         
@@ -37,9 +38,10 @@
             vertical-align: bottom;
         }
 
-        .info-text {
-            font-size: 20px;
+        i {
+            color: black;
         }
+
     </style>
 </head>
 <body>
@@ -52,11 +54,11 @@
         <div class="col-md-3 box" style="margin: 10px" >
             <h1 class="page-header text-center">Info</h1>
             <h2>Game Details</h2>
-            <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat id a ab illo repellat ipsa nostrum quo ipsam adipisci quasi. Laboriosam ducimus consequatur quaerat minus ab sit voluptatibus obcaecati expedita placeat eligendi, aspernatur beatae corrupti cumque perspiciatis voluptas minima veritatis! Odit earum hic facilis aut minima quae debitis, quia molestiae.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat id a ab illo repellat ipsa nostrum quo ipsam adipisci quasi. Laboriosam ducimus consequatur quaerat minus ab sit voluptatibus obcaecati expedita placeat eligendi, aspernatur beatae corrupti cumque perspiciatis voluptas minima veritatis! Odit earum hic facilis aut minima quae debitis, quia molestiae.</p>
 
             <br>
             <h2>Research Details</h2>
-            <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat id a ab illo repellat ipsa nostrum quo ipsam adipisci quasi. Laboriosam ducimus consequatur quaerat minus ab sit voluptatibus obcaecati expedita placeat eligendi, aspernatur beatae corrupti cumque perspiciatis voluptas minima veritatis! Odit earum hic facilis aut minima quae debitis, quia molestiae.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat id a ab illo repellat ipsa nostrum quo ipsam adipisci quasi. Laboriosam ducimus consequatur quaerat minus ab sit voluptatibus obcaecati expedita placeat eligendi, aspernatur beatae corrupti cumque perspiciatis voluptas minima veritatis! Odit earum hic facilis aut minima quae debitis, quia molestiae.</p>
 
              <br><br><br>
             <div class="text-center is-clearfix">
@@ -76,7 +78,8 @@
                 </div>
                 <div class="column box-col">
                     <% var disabled; if(user.current < 12) disabled = 'is-disabled'; else disabled = '' %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 2</a>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>">
+                        <i class="fa fa-lock fa-2x is-overlay text-center"></i>Game 2</a>
                 </div>
                 <div class="column box-col">
                     <% var disabled; if(user.current < 13) disabled = 'is-disabled'; else disabled = '' %>
