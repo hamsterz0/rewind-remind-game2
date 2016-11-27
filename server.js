@@ -46,12 +46,29 @@ app.use(function(req, res, next) {
             email: req.session.user
         }, function(err, user) {
             if(user) {
-                req.user = user;
-                delete req.user.password;
-                req.session.user = req.user.email;
-                res.locals.user = req.user;
+
+                models.playerdata.findOne({
+                    
+                    userID: user._id
+
+                }, function(err, playerdata) {
+
+                    if(playerdata) {
+                        console.log("----------->" + playerdata.userID);
+                        req.playerdata = playerdata;
+                        req.session.playerdata = req.playerdata;
+                        res.locals.playerdata = req.playerdata;
+                        // console.log("RLPU----------->" + req.locals.playerdata.userID);
+                        req.user = user;
+                        delete req.user.password;
+                        req.session.user = req.user.email;
+                        res.locals.user = req.user;
+                    }
+                    next();
+
+                });
             }
-            next();
+            
         });
     } else {
         next();
@@ -70,11 +87,11 @@ function requireLogin(req, res, next) {
 
 //-------------GET REQUESTS--------------------
 app.get('/', function(req, res) {
-    console.log(req);
     res.redirect('/welcome');
 });
 
 app.get('/welcome', function(req, res) {
+    req.session.reset();
     res.render('index.ejs');
 });
 
@@ -105,7 +122,7 @@ app.get('/game', function(req, res) {
 //----------------POST REQUESTS--------------------
 app.post('/register', function(req, res) {
 
-     models.stype.findOne({
+    models.stype.findOne({
         key: 'secret_key'
     }).then(function(data) {
         var age = req.body.age;
@@ -150,9 +167,6 @@ app.post('/register', function(req, res) {
             }
         }
 
-        console.log(data._id);
-        console.log(data.SGE);
-
         models.stype.update({_id: data._id}, {
             $set: {
                 key:    data.key,
@@ -186,7 +200,17 @@ app.post('/register', function(req, res) {
                     res.render('register.ejs', {error: error});
                 } else {
                     console.log('data has been saved');
-                    res.redirect('/dashboard');
+                    
+                    var playerDataInit = new models.playerdata({
+                        userID: userAuth._id
+                    });
+
+                    playerDataInit.save(function(err) {
+                        if(err) {
+                            res.render('register.ejs', {error: 'Sorry, some internal error has occured.'});
+                        }
+                        res.redirect('/dashboard');
+                    });
                 }
             });       
         });

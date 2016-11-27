@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var playerDataSchema = mongoose.Schema({
-    userID: Number,
+    userID: String,
     week1: {
         game1: {
             time: [],

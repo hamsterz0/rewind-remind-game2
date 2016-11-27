@@ -8,12 +8,13 @@
     <link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+    <script src="../bower_components/particles.js/particles.min.js"></script>
 
     <style>
         
         html, body{
             height: 100%;
-            background-color: #3273DC;
+            background-color: #16A085;
             padding: 20px;
         }
 
@@ -42,18 +43,27 @@
             color: black;
         }
 
+        a {
+            text-decoration: none;
+        }
+
     </style>
 </head>
 <body>
-    
+
+    <!-- Making the first name and the second name in uppercase -->
     <% user.firstname = user.firstname[0].toUpperCase() + user.firstname.substring(1, user.firstname.length) %>
     <% user.lastname = user.lastname[0].toUpperCase() + user.lastname.substring(1, user.lastname.length) %>
 
+    <!-- The row has started -->
     <div class="row main-col">
 
-        <div class="col-md-3 box" style="margin: 10px" >
+
+        <!-- The info column has started -->
+        <div class="col-md-3 box" style="margin: 10px; padding: 30px">
             <h1 class="page-header text-center">Info</h1>
             <h2>Game Details</h2>
+            <%= user.firstname %>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat id a ab illo repellat ipsa nostrum quo ipsam adipisci quasi. Laboriosam ducimus consequatur quaerat minus ab sit voluptatibus obcaecati expedita placeat eligendi, aspernatur beatae corrupti cumque perspiciatis voluptas minima veritatis! Odit earum hic facilis aut minima quae debitis, quia molestiae.</p>
 
             <br>
@@ -63,69 +73,123 @@
              <br><br><br>
             <div class="text-center is-clearfix">
                 <a class="button is-large is-danger is-fullwidth" id="logout" href="/logout">Logout</a>
-            </div>    
+            </div> 
         </div>
+        <!-- The info column has ended -->
 
+
+
+
+        <!-- The dashboard column has started -->
         <div class="col-md-8 box text-center main-col" style="margin: 10px;">
             <h1 class="page-header text-center">Dashboard</h1>
+
+
+
+
             
             <div class="columns w-col" style="border-bottom: 1px solid black">
+
+
                 <div class="column box-col">
                     <h1>Week 1</h1>
                 </div>
+
+
                 <div class="column box-col">
                     <a class="button is-danger is-large" href="/game">Game 1</a>
                 </div>
+
+
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 12) {disabled = 'is-disabled'; lock='fa fa-lock fa-2x is-overlay';} else {disabled = ''; lock='';} %>
                     <a href="/game" class="button is-danger is-large <%= disabled %>">
                         <i class=" <%= lock %> text-center"></i>Game 2</a>
                 </div>
+
+
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 13) {disabled = 'is-disabled'; lock = 'fa fa-lock fa-2x is-overlay'; } else {disabled = ''; lock = '';} %>
                     <a href="/game" class="button is-danger is-large <%= disabled %>"><i class=" <%= lock %> text-center"></i>Game 3</a>
                 </div>
+
+
+
             </div>
 
+
+
+
             <div class="columns w-col" style="border-bottom: 1px solid black">
+
+
                 <div class="column box-col">
                     <h1>Week 2</h1>
                 </div>
+
+
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 21) {disabled = 'is-disabled'; lock = 'fa fa-lock fa-2x is-overlay'; } else {disabled = ''; lock = '';} %>
                     <a href="/game" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 1</a>
                 </div>
+
+
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 22) {disabled = 'is-disabled'; lock = 'fa fa-lock fa-2x is-overlay'; } else {disabled = ''; lock = '';} %>
                     <a href="/game" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 2</a>
                 </div>
+
+
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 23) {disabled = 'is-disabled'; lock = 'fa fa-lock fa-2x is-overlay'; } else {disabled = ''; lock = '';} %>
                     <a href="/game" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 3</a>
                 </div>
+
+
             </div>
 
+
+
             <div class="columns w-col">
+
+
                 <div class="column box-col">
                     <h1>Week 3</h1>
                 </div>
+
+
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 31) {disabled = 'is-disabled'; lock = 'fa fa-lock fa-2x is-overlay'; } else {disabled = ''; lock = '';} %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 1</a>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>"> <i class="text-center <%= lock %>"></i>Game 1</a>
                 </div>
+
+
                 <div class="column box-col">
                     <% var disabled; if(user.current < 32) disabled = 'is-disabled'; else disabled = '' %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 2</a>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 2</a>
                 </div>
+
+
                 <div class="column box-col">
                     <% var disabled; if(user.current < 33) disabled = 'is-disabled'; else disabled = '' %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>">Game 3</a>
+                    <a href="/game" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 3</a>
                 </div>
+
+
             </div>
 
-        </div>
-    </div>
+
+
+        </div> <!-- The dashboard column has ended --> 
+
+
+    </div> <!-- The row has ended -->     
    
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', '../bower_components/particles.js/demo/particles.json', function() {
+          console.log('callback - particles.js config loaded');
+        });
+    </script>
 </body>
 </html>
