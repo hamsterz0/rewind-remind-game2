@@ -43,52 +43,52 @@
     
 
     <div id="particles-js" style="height: 100%">
-            <div class="login-box outline" style="width: 400px">
-                <br>
+        <div class="login-box outline" style="width: 400px">
+            <br>
 
-                <p class="text-center"><a class="fa fa-home" href="/welcome" style="text-decoration: none"> Go back home</a></p>
+            <p class="text-center"><a class="fa fa-home" href="/welcome" style="text-decoration: none"> Go back home</a></p>
+        
+            <h1 class="title text-center page-header" style="margin: 30px">Login</h1>
             
-                <h1 class="title text-center page-header" style="margin: 30px">Login</h1>
+            <form action="/login" method="post" style="padding: 10px;">
+
+                <label class="label" style="color: black; font-size: 17px;">Email</label>
+                <p class="control">
+                    <input class="input" type="text" placeholder="Enter Email" name="email">
+                </p>
+                <br>
                 
-                <form action="/login" method="post" style="padding: 10px;">
-    
-                    <label class="label" style="color: black; font-size: 17px;">Email</label>
-                    <p class="control">
-                        <input class="input" type="text" placeholder="Enter Email" name="email">
-                    </p>
-                    <br>
-                    
-                    <p class="label" style="color: black; font-size: 17px;">Password</p>
-                    <p class="control">
-                        <input class="input" type="password" placeholder="Enter Password" name="password">
-                    </p>
+                <p class="label" style="color: black; font-size: 17px;">Password</p>
+                <p class="control">
+                    <input class="input" type="password" placeholder="Enter Password" name="password">
+                </p>
 
-                    <br>
-
-                    <p class="control text-center">
-                        <button class="button is-info is-medium is-outlined">Submit</button>
-                    </p>
-                    <!-- <label class="label">Password</label>
-                    <input type="password" name="password">
-
-                    <button type="submit">Login</button> --> 
-                </form>
                 <br>
 
-                <% if (typeof error !== 'undefined') { %>
-                    
-                    <p class="control">
-                        <p class="help is-danger text-center" style="font-size: 14px"><%= error %></p>
-                    </p>
-                    <br>
-                <% } %>
-                <div class="text-center right-align">
-                    
-                    <a href="/register">Create new account</a> <br>
-                <a href="/retrievepass">Forgot my password</a>
-                </div>
+                <p class="control text-center">
+                    <button class="button is-info is-medium is-outlined">Submit</button>
+                </p>
+                <!-- <label class="label">Password</label>
+                <input type="password" name="password">
+
+                <button type="submit">Login</button> --> 
+            </form>
+            <br>
+
+            <% if (typeof error !== 'undefined') { %>
+                
+                <p class="control">
+                    <p class="help is-danger text-center" style="font-size: 14px"><%= error %></p>
+                </p>
                 <br>
+            <% } %>
+            <div class="text-center right-align">
+                
+                <a href="/register">Create new account</a> <br>
+            <a href="/retrievepass">Forgot my password</a>
             </div>
+            <br>
+        </div>
     </div>
 
     <script>

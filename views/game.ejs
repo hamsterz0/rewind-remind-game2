@@ -7,20 +7,56 @@
 	<title>Rewind-Remind Game</title>
 	<script src="../bower_components/angular/angular.min.js"></script>
 	<script src="../assets/js/angular/game.js"></script>
+	<script src="../bower_components/particles.js/particles.min.js"></script>
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+
+	<script>
+		x = "<%= user.firstname %>";	
+	</script>
+
+	<style>
+
+		html, body {
+			height: 99%;
+		}
+
+		#outPopUp {
+			position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 300px;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+		  	box-shadow: 5px 5px;
+		  	border: 1px solid;
+
+		}
+
+	</style>
+
+
 </head>
 
-<script>
-	x = "<%= playerdata.userID %>";	
-</script>
+
 
 
 <body ng-app="myApp" ng-controller="gameController">
-		
-	{{firstname}}
+	
 
+	<div id="particles-js" style="height: 100%">
+		<div id="outPopUp">
+				
+		</div>
+	</div>
+	
 
-
-
+	<script>
+		particlesJS.load('particles-js', '../bower_components/particles.js/demo/json-files/game-page-particles.json', function() {
+          console.log('callback - particles.js config loaded');
+        });
+	</script>
 
 </body>
 

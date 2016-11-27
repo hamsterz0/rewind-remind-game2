@@ -17,6 +17,7 @@ var algorithm       = 'aes-256-ctr',
 mongoose.connect('mongodb://localhost/rewind-remind');
 app.set('view engine', 'ejs');
 
+
 function encrypt(text){
   var cipher = crypto.createCipher(algorithm,password)
   var crypted = cipher.update(text,'utf8','hex')
@@ -54,16 +55,15 @@ app.use(function(req, res, next) {
                 }, function(err, playerdata) {
 
                     if(playerdata) {
-                        console.log("----------->" + playerdata.userID);
                         req.playerdata = playerdata;
                         req.session.playerdata = req.playerdata;
                         res.locals.playerdata = req.playerdata;
-                        // console.log("RLPU----------->" + req.locals.playerdata.userID);
                         req.user = user;
                         delete req.user.password;
                         req.session.user = req.user.email;
                         res.locals.user = req.user;
                     }
+                    res.app.locals.week1 = 'Hello';
                     next();
 
                 });
@@ -117,6 +117,20 @@ app.get('/retrievepass', function(req, res) {
 });
 app.get('/game', function(req, res) {
     res.render('game.ejs');
+});
+
+app.get('/getwords', requireLogin, function(req, res) {
+
+    var words = {
+        userinfo : req.user.firstname,
+        week1: {
+            word1 : 'word1answer',
+            word2 : 'word2'
+        }
+        
+    }
+
+    return res.json(words);
 });
 
 //----------------POST REQUESTS--------------------
