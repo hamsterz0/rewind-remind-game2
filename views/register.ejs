@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <title>Rewind-Remind</title>
     <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/particles.js/particles.min.js"></script>
     <link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"></link>
 
     <style>
          html, body, .container-table {
             height: 100%;
-            background-color: #3273DC;
+            background-color: #78909C; 
         }
         .container-table {
             display: table;
@@ -21,17 +23,28 @@
         }
 
         .outline {
-             padding: 15px;
+             padding: 5px;
              background-color: white;
+             outline: 1px solid black;
              box-shadow: 10px 10px;
+        }
+
+
+        .register-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%); 
         }
     </style>
 </head>
 <body>
+    
 
-    <div class="container container-table">
-        <div class="row vertical-center-row">
-            <div class="col-md-4 col-md-offset-4 outline">
+    <div id="particles-js" style="height: 100%">
+            <div class="register-box outline" style="width: 400px">
+                <br>
 
                 <h1 class="title text-center">Register</h1>
                 
@@ -92,10 +105,15 @@
                 </div>
                 <br>
             </div>
-            
-        </div>
     </div>
-    
+
+    <script>
+        particlesJS.load('particles-js', '../bower_components/particles.js/demo/json-files/login-page-particles.json', function() {
+          console.log('callback - particles.js config loaded');
+        });
+
+
+    </script>
      
 </body>
 </html>

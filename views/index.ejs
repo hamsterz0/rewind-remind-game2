@@ -8,8 +8,13 @@
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
     <link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
+    <script src="../bower_components/particles.js/particles.min.js"></script>
 
     <style>
+
+    body {
+        /*background-color: #78909C;*/
+    }
 
     .vcontainer {
         min-height: 10em;
@@ -17,19 +22,22 @@
         vertical-align: middle;
     }
 
+    h1 h2 p {
+        color: white;
+    }
+
     </style>
 
 </head>
-<body ng-app="myApp" ng-controller="myController">
-
-    <section class="hero is-info is-fullheight">
-        <div class="hero-body text-center">
-            <div class="container title-text" style="border-top: 1.5px solid black; border-bottom: 1.5px solid black; padding: 30px">
+<body ng-app="myApp" ng-controller="myController" >
+    <section class="hero is-fullheight" >
+        <div class="hero-body text-center" id="particles-js">
+            <div class="container title-text">
                 <h1 class="title is-1">Rewind-Remind</h1>
                 <h2 class="subtitle is-4">Cognitive Memory Assesment</h2>
 
-                <a href="/login" class="button is-info is-large is-inverted" style="margin-right: 5px">Login</a>
-                <a href="/register" class="button is-info is-large is-inverted">Register</a>
+                <a href="/login" class="button is-info is-medium is-inverted" style="margin-right: 5px">Login</a>
+                <a href="/register" class="button is-info is-medium is-inverted">Register</a>
             </div>
         </div>
     </section>
@@ -50,6 +58,10 @@
     
     <!-- Angular JS -->
     <script>
+
+        particlesJS.load('particles-js', '../bower_components/particles.js/demo/particles.json', function() {
+          console.log('callback - particles.js config loaded');
+        });
 
         var app = angular.module('myApp', []);
         app.controller('myController', function($scope) {

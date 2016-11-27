@@ -70,6 +70,7 @@ function requireLogin(req, res, next) {
 
 //-------------GET REQUESTS--------------------
 app.get('/', function(req, res) {
+    console.log(req);
     res.redirect('/welcome');
 });
 
@@ -103,9 +104,6 @@ app.get('/game', function(req, res) {
 
 //----------------POST REQUESTS--------------------
 app.post('/register', function(req, res) {
-
-    console.log('-------------');
-    console.log('-->' + req.body.firstname);
 
      models.stype.findOne({
         key: 'secret_key'
