@@ -14,7 +14,7 @@
         
         html, body{
             height: 100%;
-            background-color: #16A085;
+            background-color: #9FA8DA;
             padding: 20px;
         }
 
@@ -97,20 +97,20 @@
 
 
                 <div class="column box-col">
-                    <a class="button is-danger is-large" href="/game">Game 1</a>
+                    <a class="button is-danger is-large" href="/game/memorize">Game 1</a>
                 </div>
 
 
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 12) {disabled = 'is-disabled'; lock='fa fa-lock fa-2x is-overlay';} else {disabled = ''; lock='';} %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>">
+                    <a href="/game/memorize" class="button is-danger is-large <%= disabled %>">
                         <i class=" <%= lock %> text-center"></i>Game 2</a>
                 </div>
 
 
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 13) {disabled = 'is-disabled'; lock = 'fa fa-lock fa-2x is-overlay'; } else {disabled = ''; lock = '';} %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>"><i class=" <%= lock %> text-center"></i>Game 3</a>
+                    <a href="/game/memorize" class="button is-danger is-large <%= disabled %>"><i class=" <%= lock %> text-center"></i>Game 3</a>
                 </div>
 
 
@@ -130,19 +130,19 @@
 
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 21) {disabled = 'is-disabled'; lock = 'fa fa-lock fa-2x is-overlay'; } else {disabled = ''; lock = '';} %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 1</a>
+                    <a href="/game/memorize" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 1</a>
                 </div>
 
 
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 22) {disabled = 'is-disabled'; lock = 'fa fa-lock fa-2x is-overlay'; } else {disabled = ''; lock = '';} %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 2</a>
+                    <a href="/game/memorize" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 2</a>
                 </div>
 
 
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 23) {disabled = 'is-disabled'; lock = 'fa fa-lock fa-2x is-overlay'; } else {disabled = ''; lock = '';} %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 3</a>
+                    <a href="/game/memorize" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 3</a>
                 </div>
 
 
@@ -160,19 +160,19 @@
 
                 <div class="column box-col">
                     <% var disabled; var lock; if(user.current < 31) {disabled = 'is-disabled'; lock = 'fa fa-lock fa-2x is-overlay'; } else {disabled = ''; lock = '';} %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>"> <i class="text-center <%= lock %>"></i>Game 1</a>
+                    <a href="/game/memorize" class="button is-danger is-large <%= disabled %>"> <i class="text-center <%= lock %>"></i>Game 1</a>
                 </div>
 
 
                 <div class="column box-col">
                     <% var disabled; if(user.current < 32) disabled = 'is-disabled'; else disabled = '' %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 2</a>
+                    <a href="/game/memorize" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 2</a>
                 </div>
 
 
                 <div class="column box-col">
                     <% var disabled; if(user.current < 33) disabled = 'is-disabled'; else disabled = '' %>
-                    <a href="/game" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 3</a>
+                    <a href="/game/memorize" class="button is-danger is-large <%= disabled %>"><i class="text-center <%= lock %>"></i>Game 3</a>
                 </div>
 
 

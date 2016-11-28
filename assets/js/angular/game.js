@@ -1,12 +1,42 @@
 var app = angular.module('myApp', []);
 
-app.controller('gameController', function($scope, $http) {
-	$scope.firstname = window.x;
+app.controller('gameController', function($scope, $http, $window) {
 
-	$http.get('/getwords').then(function getCallback(response) {
+	var wordList;
+	var counter = 1;
 
-		console.log(response.data.week1.word1);
-		$scope.firstname = response.data.userinfo;
+	$scope.stype = window.x;
+	console.log($scope.stype[0]);
 
-	}, function getError(error) {});
+	$scope.buttonTitle = "Next Set";
+
+	$http.get('/game/getwords').then(function getCallback(response) {
+
+		wordList = response.data.week1.game1;
+		console.log(wordList);
+
+		$scope.word1 = wordList[0][0];
+		$scope.word2 = wordList[0][1];
+		$scope.hint = wordList[0][2];
+
+		$scope.buttonPressed = function() {
+
+			if(counter == wordList.length-1) {
+				$scope.buttonTitle = 'Finish memorizing';
+				$window.location.href = '/game/test'
+
+				// $http.post('/game/test', {value: 0}).then(function success(res) {
+
+				// 	console.log(res);
+				// }, function error(err) {});
+			}
+
+			$scope.word1 = wordList[counter][0];
+			$scope.word2 = wordList[counter][1];
+			$scope.hint = wordList[counter++][2];
+		}
+	}, function getError(error) {
+
+		console.log('Internal Server Error: 500');
+	});
 });

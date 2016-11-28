@@ -82,7 +82,6 @@ function requireLogin(req, res, next) {
         next();
     }
 }
-
 //routes
 
 //-------------GET REQUESTS--------------------
@@ -91,7 +90,6 @@ app.get('/', function(req, res) {
 });
 
 app.get('/welcome', function(req, res) {
-    req.session.reset();
     res.render('index.ejs');
 });
 
@@ -109,28 +107,42 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/dashboard', requireLogin, function(req, res) {
+    console.log('coming here from /game/test');
     res.render('dashboard.ejs');
 });
 
 app.get('/retrievepass', function(req, res) {
     res.render('retrievepass.ejs');
 });
-app.get('/game', function(req, res) {
+app.get('/game/memorize', requireLogin, function(req, res) {
     res.render('game.ejs');
 });
 
-app.get('/getwords', requireLogin, function(req, res) {
+app.get('/game/getwords', requireLogin, function(req, res) {
 
     var words = {
-        userinfo : req.user.firstname,
         week1: {
-            word1 : 'word1answer',
-            word2 : 'word2'
+            game1: [
+            ['w1s1', 'w1s2', 'some hint 1'],
+            ['w2s1', 'w2s2', 'some hint 2'],
+            ['w3s1', 'w3s2', 'some hint 3'],
+            ['w4s1', 'w4s2', 'some hint 4'],
+            ['w5s1', 'w5s2', 'some hint 5'],
+            ['w6s1', 'w6s2', 'some hint 6'],
+            ['w7s1', 'w7s2', 'some hint 7'],
+            ['w8s1', 'w8s2', 'some hint 8'],
+            ['w9s1', 'w9s2', 'some hint 9'],
+            ['w10s1', 'w10s2', 'some hint 10'],
+             ]
         }
-        
     }
 
     return res.json(words);
+});
+
+app.get('/game/test', function(req, res) {
+
+    res.render('gametest.ejs');
 });
 
 //----------------POST REQUESTS--------------------
@@ -290,6 +302,17 @@ app.post('/retrievepass', function(req, res) {
             res.render('retrievepass.ejs', {error: 'Invalid email'});
         }
     });
+
+});
+
+app.post('/game/test', function(req, res) {
+
+    if(req.body.valid != 1) {
+        console.log('redirecting...');
+        return res.json({ redirect: '/dashboard' })
+    } else {
+        return res.json({ redirect: '/game/test' })
+    }
 
 });
 

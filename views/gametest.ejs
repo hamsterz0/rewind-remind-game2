@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>Rewind-Remind Game</title>
 	<script src="../bower_components/angular/angular.min.js"></script>
-	<script src="../assets/js/angular/game.js"></script>
+	<script src="../assets/js/angular/gametest.js"></script>
 	<script src="../bower_components/particles.js/particles.min.js"></script>
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
 	<link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
@@ -72,12 +72,24 @@
 
 
 
-<body ng-app="myApp" ng-controller="gameController">
+<body ng-app="myGameTestApp" ng-controller="gameTestController">
 	
 
 	<div id="particles-js" style="height: 100%">
 		<div id="outPopUp">
-			<div class="containerText">
+
+
+			<div id="information" class="containerText">
+				<h1 class="text-center" style="font-size: 1.5em; padding: 15px;">In this section please tell if the two words (that you memorized in the previous section) are pairs. If you are unsure if the words are pairs are not, you can click on the hint button to 
+					check the pairs . Click on the button below when you feel you are ready.</h1>
+				<div class="container text-center" style="margin: 0 auto">
+					<button class="button is-primary is-medium" ng-click="buttonPressed()">Begin Test</button>
+				</div>
+			</div>
+
+
+
+			<div id="testPart" class="containerText" style="display: none">
 				<div class="row row-padding" style="margin-top: 50px">
 
 
