@@ -14,6 +14,8 @@ app.controller('gameTestController', function($scope, $http, $interval, $window)
 	$scope.hintTimer = 0;
 	hintCheckCounter = 0;
 	var counter = 0;
+	var questions;
+	$scope.hintsolutions;
 
 	$scope.beginTest = function() {
 
@@ -27,12 +29,14 @@ app.controller('gameTestController', function($scope, $http, $interval, $window)
 
 		$http.get('/game/gettestwords').then(function success(res) {
 
-			var questions = res.data.week1.game1;
+			questions = res.data.week1.game1;
 			console.log(questions);
 
 			$http.get('/game/getwords').then(function success(res) {
 
-				startGame(questions);
+				$scope.hintsolutions = res.data.week1.game1;
+				console.log($scope.hintsolutions[0][0]);
+				startGame();
 			}, function error(err) {
 
 			});
@@ -43,7 +47,7 @@ app.controller('gameTestController', function($scope, $http, $interval, $window)
 		});
 
 
-		function startGame(questions) {
+		function startGame() {
 
 			
 
@@ -107,7 +111,7 @@ app.controller('gameTestController', function($scope, $http, $interval, $window)
 
 				counter++;
 				stopQuestionTimer();
-				startGame(questions);
+				startGame();
 			}
 
 			$scope.hintButton = function() {
@@ -126,7 +130,7 @@ app.controller('gameTestController', function($scope, $http, $interval, $window)
 
 				counter++;
 				stopQuestionTimer();
-				startGame(questions);
+				startGame();
 			}
 		}
 	}

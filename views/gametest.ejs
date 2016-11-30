@@ -93,9 +93,27 @@
 			      	<button class="delete" ng-click="modalClose()"></button>
 			    </header>
 			    <section class="modal-card-body">
-			      <h1>Hello</h1>
-			      <h1>Hello</h1>
-			      <h1>Hello</h1>
+					<table class="table is-striped has-text-centered">
+						<thead class="has-text-centered">
+							<tr class="has-text-centered">
+								<th class="has-text-centered" >Word1</th>
+								<th class="has-text-centered" >Word2</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th class="text-center" >Word1</th>
+								<th class="text-center" >Word2</th>
+							</tr>
+						</tfoot>
+
+						<tbody>
+							<tr ng-repeat="words in hintsolutions">
+								<td >{{words[0]}}</td>
+								<td  >{{words[1]}}</td>
+							</tr>
+						</tbody>
+					</table>
 			    </section>
 
 			    <footer class="modal-card-foot text-center">

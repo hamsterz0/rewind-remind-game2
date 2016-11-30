@@ -28,7 +28,7 @@ var authSchema = mongoose.Schema({
     },
     current: {
         type: Number,
-        default: 0
+        default: 11
     }
 });
 

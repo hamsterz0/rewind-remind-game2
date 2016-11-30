@@ -23,12 +23,7 @@ app.controller('gameController', function($scope, $http, $window) {
 
 			if(counter == wordList.length-1) {
 				$scope.buttonTitle = 'Finish memorizing';
-				$window.location.href = '/game/test'
-
-				// $http.post('/game/test', {value: 0}).then(function success(res) {
-
-				// 	console.log(res);
-				// }, function error(err) {});
+				$window.location.href = '/game/test';
 			}
 
 			$scope.word1 = wordList[counter][0];
