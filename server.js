@@ -123,27 +123,55 @@ app.get('/game/getwords', requireLogin, function(req, res) {
     var words = {
         week1: {
             game1: [
-            ['w1s1', 'w1s2', 'some hint 1'],
-            ['w2s1', 'w2s2', 'some hint 2'],
-            ['w3s1', 'w3s2', 'some hint 3'],
-            ['w4s1', 'w4s2', 'some hint 4'],
-            ['w5s1', 'w5s2', 'some hint 5'],
-            ['w6s1', 'w6s2', 'some hint 6'],
-            ['w7s1', 'w7s2', 'some hint 7'],
-            ['w8s1', 'w8s2', 'some hint 8'],
-            ['w9s1', 'w9s2', 'some hint 9'],
-            ['w10s1', 'w10s2', 'some hint 10'],
-             ]
+                ['w1s1', 'w1s2', 'some hint 1'],
+                ['w2s1', 'w2s2', 'some hint 2'],
+                ['w3s1', 'w3s2', 'some hint 3'],
+                ['w4s1', 'w4s2', 'some hint 4'],
+                ['w5s1', 'w5s2', 'some hint 5'],
+                ['w6s1', 'w6s2', 'some hint 6'],
+                ['w7s1', 'w7s2', 'some hint 7'],
+                ['w8s1', 'w8s2', 'some hint 8'],
+                ['w9s1', 'w9s2', 'some hint 9'],
+                ['w10s1', 'w10s2', 'some hint 10'],
+            ]
         }
     }
 
     return res.json(words);
 });
 
-app.get('/game/test', function(req, res) {
+app.get('/game/gettestwords', requireLogin, function(req, res) {
+
+    var words = {
+        week1: {
+            game1: [
+                ['w1s1', 'w1s2', true],
+                ['w2s1', 'w2s2', false],
+                ['w3s1', 'w3s2', false],
+                ['w4s1', 'w4s2', false],
+                ['w5s1', 'w5s2', true],
+                ['w6s1', 'w6s2', false],
+                ['w7s1', 'w7s2', false],
+                ['w8s1', 'w8s2', true],
+                ['w9s1', 'w9s2', true],
+                ['w10s1', 'w10s2', true],
+            ]
+        }
+    }
+
+    return res.json(words);
+});
+
+app.get('/game/test', requireLogin, function(req, res) {
 
     res.render('gametest.ejs');
 });
+
+app.get('/game/helperModal.ejs', requireLogin, function(req, res) {
+
+    res.render('helperModal.ejs');
+});
+
 
 //----------------POST REQUESTS--------------------
 app.post('/register', function(req, res) {

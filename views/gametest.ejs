@@ -10,6 +10,8 @@
 	<script src="../bower_components/particles.js/particles.min.js"></script>
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
 	<link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
+	<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
 	<script>
 		x = "<%= user.stype %>";	
@@ -26,7 +28,7 @@
             top: 50%;
             left: 50%;
             width: 500px;
-            height: 400px;
+            height: 450px;
             margin-right: -50%;
             transform: translate(-50%, -50%);
             background-color: white;
@@ -64,6 +66,14 @@
 			font-size: 1.3em;
 		}
 
+		#yesbutton {
+			margin-right: 10px;
+			width: 150px;
+		}
+		#nobutton {
+			width: 150px;
+		}
+
 	</style>
 
 
@@ -73,38 +83,61 @@
 
 
 <body ng-app="myGameTestApp" ng-controller="gameTestController">
-	
+
+	<div class="modal" ng-class="{'is-active': hint}">
+		<div class="modal-background"></div>
+		<div class="modal-content text-center">
+			<div class="modal-card">
+			    <header class="modal-card-head">
+			      	<p class="modal-card-title text-center">Hints</p>
+			      	<button class="delete" ng-click="modalClose()"></button>
+			    </header>
+			    <section class="modal-card-body">
+			      <h1>Hello</h1>
+			      <h1>Hello</h1>
+			      <h1>Hello</h1>
+			    </section>
+
+			    <footer class="modal-card-foot text-center">
+			    	<h1 class="text-center" style="padding-left: 41%;font-size: 1em">Timer: {{hintTimer}} seconds</h1>
+			    </footer>
+		 	</div>
+		</div>
+		<button class="modal-close" ng-click="modalClose()"></button>
+	</div>
+
+
 
 	<div id="particles-js" style="height: 100%">
 		<div id="outPopUp">
 
-
-			<div id="information" class="containerText">
+			<div ng-show="information" class="containerText">
 				<h1 class="text-center" style="font-size: 1.5em; padding: 15px;">In this section please tell if the two words (that you memorized in the previous section) are pairs. If you are unsure if the words are pairs are not, you can click on the hint button to 
-					check the pairs . Click on the button below when you feel you are ready.</h1>
+					check the pairs . Click on the button below when you feel you are ready. {{test}}</h1>
+
+
 				<div class="container text-center" style="margin: 0 auto">
-					<button class="button is-primary is-medium" ng-click="buttonPressed()">Begin Test</button>
+					<button class="button is-primary is-medium" ng-click="beginTest()" style="margin-top: 50px">Begin Test</button>
 				</div>
+
+
 			</div>
 
 
 
-			<div id="testPart" class="containerText" style="display: none">
+			<div ng-show="gametest" class="containerText">
+				
+				<h1 class="text-center word page-header" style="margin-top: 30px;">Are the words a pair?</h1>
+				
 				<div class="row row-padding" style="margin-top: 50px">
 
 
-					<div class="col-lg-4">
-						<p class="word pull-right">{{word1}}</p>
+					<div class="col-lg-6">
+						<p class="word pull-right">{{ word1 }}</p>
 					</div>
 
-
-					<div class="col-lg-4">
-						<input type="text" class="input is-medium" style="text-align: center">
-					</div>
-
-
-					<div class="col-lg-4">
-						<p class="word pull-left">{{word2}}</p>
+					<div class="col-lg-6">
+						<p class="word pull-left">{{ word2 }}</p>
 					</div>
 
 
@@ -112,16 +145,19 @@
 				<br><br><br>
 
 				<div class="container text-center" style="margin: 0 auto">
-					<button class="button is-primary is-medium" ng-click="buttonPressed()">{{buttonTitle}}</button>
-					<% if(user.stype[0] == 'D') { %>
-						<p class="hint">Hint: {{hint}}</p>
-					<% } %>
+					<button id="yesbutton" class="button is-success is-medium" ng-click="yesPressed()"><i class="fa fa-check" style="margin-right: 5px;"></i>Yes</button>
+					<button id="nobutton" class="button is-danger is-medium" ng-click="noPressed()"><i class="fa fa-times" style="margin-right: 5px;"></i>No</button>
+				</div>
 
+				<div class="container text-center" style="margin: 0 auto; width: 600px; margin-top: 50px">
+					<button class="button is-warning is-medium is-fullwidth" ng-click="hintButton()">Hint</button>
+					<h1 style="margin-top: 50px; font-size: 1.3em">Timer: {{questionTimer}} seconds</h1>
 				</div>
 
 				<br>
 				<br>
 
+				
 
 			</div>
 		</div>
@@ -129,6 +165,11 @@
 	
 
 	<script>
+
+		$(function() {
+		});
+
+
 		particlesJS.load('particles-js', '../bower_components/particles.js/demo/json-files/game-page-particles.json', function() {
           console.log('callback - particles.js config loaded');
         });

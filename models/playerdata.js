@@ -5,44 +5,53 @@ var playerDataSchema = mongoose.Schema({
     week1: {
         game1: {
             time: [],
-            hintTime: []
+            hintTime: [],
+            correctAnswers: []
         },
         game2: {
             time: [],
-            hintTime: []
+            hintTime: [],
+            correctAnswers: []
         },
         game3: {
             time: [],
-            hintTime: []
+            hintTime: [],
+            correctAnswers: []
         }
     },
     week2: {
         game1: {
             time: [],
-            hintTime: []
+            hintTime: [],
+            correctAnswers: []
 
         },
         game2: {
             time: [],
-            hintTime: []
+            hintTime: [],
+            correctAnswers: []
         },
         game3: {
             time: [],
-            hintTime: []
+            hintTime: [],
+            correctAnswers: []
         }
     },
     week3: {
         game1: {
             time: [],
-            hintTime: []
+            hintTime: [],
+            correctAnswers: []
         },
         game2: {
             time: [],
-            hintTime: []
+            hintTime: [],
+            correctAnswers: []
         },
         game3: {
             time: [],
-            hintTime: []
+            hintTime: [],
+            correctAnswers: []
         }
     }
 });
