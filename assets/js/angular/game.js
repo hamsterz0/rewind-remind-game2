@@ -4,15 +4,19 @@ app.controller('gameController', function($scope, $http, $window) {
 
 	var wordList;
 	var counter = 1;
+	var usercurrent = window.x;
 
-	$scope.stype = window.x;
-	console.log($scope.stype[0]);
+	console.log(usercurrent);
 
 	$scope.buttonTitle = "Next Set";
 
-	$http.get('/game/getwords').then(function getCallback(response) {
+	$http({
+			url: '/game/getwords',
+			method: 'GET',
+			params: {usercurrent: usercurrent}
+		}).then(function getCallback(response) {
 
-		wordList = response.data.week1.game1;
+		wordList = response.data;
 		console.log(wordList);
 
 		$scope.word1 = wordList[0][0];

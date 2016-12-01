@@ -120,46 +120,85 @@ app.get('/game/memorize', requireLogin, function(req, res) {
 
 app.get('/game/getwords', requireLogin, function(req, res) {
 
+    var current = req.query.usercurrent;
+
     var words = {
-        week1: {
-            game1: [
-                ['w1s1', 'w1s2', 'some hint 1'],
-                ['w2s1', 'w2s2', 'some hint 2'],
-                ['w3s1', 'w3s2', 'some hint 3'],
-                ['w4s1', 'w4s2', 'some hint 4'],
-                ['w5s1', 'w5s2', 'some hint 5'],
-                ['w6s1', 'w6s2', 'some hint 6'],
-                ['w7s1', 'w7s2', 'some hint 7'],
-                ['w8s1', 'w8s2', 'some hint 8'],
-                ['w9s1', 'w9s2', 'some hint 9'],
-                ['w10s1', 'w10s2', 'some hint 10'],
-            ]
+        w1: {
+            g1: [
+                ['w1w1s1', 'w1w1s2', 'some hint 1'],
+                ['w1w2s1', 'w1w2s2', 'some hint 2'],
+                ['w1w3s1', 'w1w3s2', 'some hint 3'],
+                ['w1w4s1', 'w1w4s2', 'some hint 4'],
+                ['w1w5s1', 'w1w5s2', 'some hint 5'],
+                ['w1w6s1', 'w1w6s2', 'some hint 6'],
+                ['w1w7s1', 'w1w7s2', 'some hint 7'],
+                ['w1w8s1', 'w1w8s2', 'some hint 8'],
+                ['w1w9s1', 'w1w9s2', 'some hint 9'],
+                ['w1w10s1', 'w1w10s2', 'some hint 10'],
+            ],
+            g2: [
+                ['w2w1s1', 'w2w1s2', 'some hint 1'],
+                ['w2w2s1', 'w2w2s2', 'some hint 2'],
+                ['w2w3s1', 'w2w3s2', 'some hint 3'],
+                ['w2w4s1', 'w2w4s2', 'some hint 4'],
+                ['w2w5s1', 'w2w5s2', 'some hint 5'],
+                ['w2w6s1', 'w2w6s2', 'some hint 6'],
+                ['w2w7s1', 'w2w7s2', 'some hint 7'],
+                ['w2w8s1', 'w2w8s2', 'some hint 8'],
+                ['w2w9s1', 'w2w9s2', 'some hint 9'],
+                ['w2w10s1', 'w2w10s2', 'some hint 10'],
+            ],
         }
     }
 
-    return res.json(words);
+    var week = 'w' + 1;
+    var game = 'g' + 1;
+
+    var userwords = words[week][game]
+
+    return res.json(userwords);
 });
 
 app.get('/game/gettestwords', requireLogin, function(req, res) {
 
+    var current = req.query.usercurrent;
+
     var words = {
-        week1: {
-            game1: [
-                ['w1s1', 'w1s2', true],
-                ['w2s1', 'w2s2', false],
-                ['w3s1', 'w3s2', false],
-                ['w4s1', 'w4s2', false],
-                ['w5s1', 'w5s2', true],
-                ['w6s1', 'w6s2', false],
-                ['w7s1', 'w7s2', false],
-                ['w8s1', 'w8s2', true],
-                ['w9s1', 'w9s2', true],
-                ['w10s1', 'w10s2', true],
-            ]
+        w1: {
+            g1: [
+                ['w1w1s1', 'w1w1s2', true],
+                ['w1w2s1', 'w1w2s2', false],
+                ['w1w3s1', 'w1w3s2', false],
+                ['w1w4s1', 'w1w4s2', true],
+                ['w1w5s1', 'w1w5s2', false],
+                ['w1w6s1', 'w1w6s2', true],
+                ['w1w7s1', 'w1w7s2', false],
+                ['w1w8s1', 'w1w8s2', true],
+                ['w1w9s1', 'w1w9s2', false],
+                ['w1w10s1', 'w1w10s2', false],
+            ],
+            g2: [
+                ['w2w1s1', 'w2w1s2', true],
+                ['w2w2s1', 'w2w2s2', false],
+                ['w2w3s1', 'w2w3s2', true],
+                ['w2w4s1', 'w2w4s2', false],
+                ['w2w5s1', 'w2w5s2', true],
+                ['w2w6s1', 'w2w6s2', true],
+                ['w2w7s1', 'w2w7s2', false],
+                ['w2w8s1', 'w2w8s2', true],
+                ['w2w9s1', 'w2w9s2', false],
+                ['w2w10s1', 'w2w10s2', false],
+            ],
         }
     }
 
-    return res.json(words);
+    var week = 'w' + '1';
+    var game = 'g' + '1';
+
+    var userwords = words[week][game];
+
+    return res.json(userwords);
+
 });
 
 app.get('/game/test', requireLogin, function(req, res) {
@@ -273,6 +312,86 @@ app.post('/register', function(req, res) {
     
 });
 
+app.post('/game/end', function(req, res) {
+
+
+    models.playerdata.findOne({
+        userID: req.user._id
+    }).then(function(userplayerdata) {
+
+        var current = req.user.current.toString();
+        console.log(current);
+        var week = 'week' + current[0];
+        var game = 'game' + current[1];
+
+        userplayerdata.gameresults[week][game] = req.body.userresult;
+
+        models.playerdata.update({userID: req.user._id}, {
+            $set: {
+                gameresults: userplayerdata.gameresults
+            }
+        }, function(err, result) {
+
+            models.auth.update({_id: req.user._id}, {
+                $set: {
+                    current: req.body.usercurrent
+                }
+            }, function(err, result) {
+                res.redirect('/dashboard');    
+            });
+        });
+
+    }).catch(function(err) {
+        console.log('ERROR IN GAME END: ' + err);
+    });
+
+    // //updating the database
+    // models.auth.update({_id: req.user._id}, {
+    //     $set: {
+    //         current: req.body.usercurrent
+    //     }
+    // }, function(err, result) {
+
+    //     if(req.body.usercurrent[0] == '4') {
+
+    //         res.redirect('/dashboard');
+
+    //     } else {
+
+    //         models.playerdata.findOne({
+    //             userID: req.user._id
+    //         }).then(function(userplayerdata) {
+
+    //             console.log(userplayerdata);
+
+    //             var current = req.body.usercurrent.toString();
+    //             console.log(current);
+    //             var week = 'week' + current[0];
+    //             var game = 'game' + current[1];
+
+    //             userplayerdata.gameresults[week][game] = req.body.userresult;
+
+    //             console.log(userplayerdata.gameresults);
+
+    //             models.playerdata.update({userID: req.user._id}, {
+    //                 $set: {
+    //                     gameresults: userplayerdata.gameresults
+    //                 }
+    //             }, function(err, result) {
+
+    //                 res.redirect('/dashboard');
+    //             });
+
+    //         }).catch(function(err) {
+    //             console.log('ERROR IN GAME END: ' + err);
+    //         });
+    //     }
+
+       
+    // });
+
+});
+
 app.post('/login', function(req, res) {
 
     models.auth.findOne({
@@ -343,6 +462,8 @@ app.post('/game/test', function(req, res) {
     }
 
 });
+
+
 
 
 app.listen(port, function() {

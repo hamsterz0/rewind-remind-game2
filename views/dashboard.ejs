@@ -61,15 +61,24 @@
 
         <!-- The info column has started -->
         <div class="col-md-3 box" style="margin: 10px; padding: 30px">
-            <h1 class="page-header text-center">Info</h1>
+            <h1 class="page-header text-center">Information</h1>
+            
+            <h2>Account Information</h2>
+            <p><strong>Name: </strong><%= user.firstname + ' ' + user.lastname  %></p>
+            <p><strong>Email: </strong><%= user.email  %></p>
+            <p><strong>Category: </strong><%= user.stype  %></p>
+            
+            <hr>
+
             <h2>Game Details</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat id a ab illo repellat ipsa nostrum quo ipsam adipisci quasi. Laboriosam ducimus consequatur quaerat minus ab sit voluptatibus obcaecati expedita placeat eligendi, aspernatur beatae corrupti cumque perspiciatis voluptas minima veritatis! Odit earum hic facilis aut minima quae debitis, quia molestiae.</p>
 
-            <br>
+            <hr>
+
             <h2>Research Details</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat id a ab illo repellat ipsa nostrum quo ipsam adipisci quasi. Laboriosam ducimus consequatur quaerat minus ab sit voluptatibus obcaecati expedita placeat eligendi, aspernatur beatae corrupti cumque perspiciatis voluptas minima veritatis! Odit earum hic facilis aut minima quae debitis, quia molestiae.</p>
 
-             <br><br><br>
+             <br>
             <div class="text-center is-clearfix">
                 <a class="button is-large is-danger is-fullwidth" id="logout" href="/logout">Logout</a>
             </div> 

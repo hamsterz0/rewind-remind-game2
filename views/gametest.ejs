@@ -14,7 +14,7 @@
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
 	<script>
-		x = "<%= user.stype %>";	
+		x = "<%= user.current %>";	
 	</script>
 
 	<style>
@@ -84,16 +84,16 @@
 
 <body ng-app="myGameTestApp" ng-controller="gameTestController">
 
-	<div class="modal" ng-class="{'is-active': hint}">
+	<div class="modal" ng-class="{'is-active': hidden.hint}" >
 		<div class="modal-background"></div>
-		<div class="modal-content text-center">
+		<div class="modal-content">
 			<div class="modal-card">
 			    <header class="modal-card-head">
 			      	<p class="modal-card-title text-center">Hints</p>
 			      	<button class="delete" ng-click="modalClose()"></button>
 			    </header>
 			    <section class="modal-card-body">
-					<table class="table is-striped has-text-centered">
+					<table class="table">
 						<thead class="has-text-centered">
 							<tr class="has-text-centered">
 								<th class="has-text-centered" >Word1</th>
@@ -129,9 +129,9 @@
 	<div id="particles-js" style="height: 100%">
 		<div id="outPopUp">
 
-			<div ng-show="information" class="containerText">
+			<div ng-show="hidden.information" class="containerText">
 				<h1 class="text-center" style="font-size: 1.5em; padding: 15px;">In this section please tell if the two words (that you memorized in the previous section) are pairs. If you are unsure if the words are pairs are not, you can click on the hint button to 
-					check the pairs . Click on the button below when you feel you are ready. {{test}}</h1>
+					check the pairs . Click on the button below when you feel you are ready.</h1>
 
 
 				<div class="container text-center" style="margin: 0 auto">
@@ -143,7 +143,7 @@
 
 
 
-			<div ng-show="gametest" class="containerText">
+			<div ng-show="hidden.gametest" class="containerText">
 				
 				<h1 class="text-center word page-header" style="margin-top: 30px;">Are the words a pair?</h1>
 				
@@ -178,6 +178,21 @@
 				
 
 			</div>
+
+
+			<div ng-show="hidden.endgame" class="containerText">
+				<h1 class="text-center" style="font-size: 1.5em; padding: 15px;">In this section please tell if the two words (that you memorized in the previous section) are pairs. If you are unsure if the words are pairs are not, you can click on the hint button to 
+					check the pairs . Click on the button below when you feel you are ready.</h1>
+
+
+				<div class="container text-center" style="margin: 0 auto">
+					<button class="button is-primary is-medium" ng-click="beginTest()" style="margin-top: 50px">Begin Test</button>
+				</div>
+
+
+			</div>
+			
+
 		</div>
 	</div>
 	

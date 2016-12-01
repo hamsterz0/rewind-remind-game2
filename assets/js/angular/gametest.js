@@ -1,41 +1,55 @@
 var app = angular.module('myGameTestApp', []);
 
-app.controller('gameTestController', function($scope, $http, $interval, $window) {
+app.controller('gameTestController', function($scope, $http, $interval, $window, $location) {
 
-	var userAnswers = {
-		time: [],
-		hintTime: [],
+	var userdata = {
+		questionTime: [],
+		hint: [],
 		correctAnswers: []
 	};
 
-	$scope.information = true;
-	$scope.gametest = false;
-	$scope.hint = false;
-	$scope.hintTimer = 0;
-	hintCheckCounter = 0;
+	$scope.hidden = {
+
+		information: true,
+		gametest: false,
+		hint: false,
+		endgame: false
+	}
+
+	
+
+	var usercurrent = window.x;
 	var counter = 0;
 	var questions;
 	$scope.hintsolutions;
 
+	var hintTimerInterval;
+
 	$scope.beginTest = function() {
 
-		$scope.information = false;
-		$scope.gametest = true;
-		$scope.modalview = false;
+		$scope.hidden.information = false;
+		$scope.hidden.gametest = true;
+		$scope.hidden.modalview = false;
 
 
 		var questionTimerInterval;
 
 
-		$http.get('/game/gettestwords').then(function success(res) {
+		$http({
+			url: '/game/gettestwords',
+			method: 'GET',
+			params: {usercurrent: usercurrent}
+		}).then(function success(res) {
 
-			questions = res.data.week1.game1;
-			console.log(questions);
+			questions = res.data;
 
-			$http.get('/game/getwords').then(function success(res) {
+			$http({
+				url: '/game/getwords',
+				method: 'GET',
+				params: {usercurrent: usercurrent}
+			}).then(function success(res) {
 
-				$scope.hintsolutions = res.data.week1.game1;
-				console.log($scope.hintsolutions[0][0]);
+				$scope.hintsolutions = res.data;
 				startGame();
 			}, function error(err) {
 
@@ -49,13 +63,36 @@ app.controller('gameTestController', function($scope, $http, $interval, $window)
 
 		function startGame() {
 
-			
-
-			if(counter == questions.length-1) {
-
-				console.log('Finished with questions');
-				$window.location.href = '/game/test';
+			var hintdetails = {
+				hintcounter: 0,
+				hinttime: 0
 			}
+			
+			//----------------------------------------------------
+			if(counter == questions.length) {
+
+				if(usercurrent[1] == 3 ) {
+					usercurrent = parseInt(usercurrent) + 8;
+				} else {
+					usercurrent = parseInt(usercurrent) + 1;
+				}
+
+				$http({
+					url: '/game/end',
+					method: 'POST',
+					data: {
+						usercurrent: usercurrent,
+						userresult: userdata
+					}
+				}).then(function success(res) {
+
+					$window.location.href = '/dashboard'
+				}, function error(err) {
+					console.log(err.data);
+				});
+
+			}
+			//----------------------------------------------------
 
 			$scope.word1 = questions[counter][0];
 			$scope.word2 = questions[counter][1];
@@ -83,6 +120,7 @@ app.controller('gameTestController', function($scope, $http, $interval, $window)
 			function stopQuestionTimer() {
 
 				$interval.cancel(questionTimerInterval);
+				userdata.questionTime.push($scope.questionTimer);
 
 			}
 
@@ -90,6 +128,8 @@ app.controller('gameTestController', function($scope, $http, $interval, $window)
 			function startHintTimer() {
 
 				hintTimerHelper(0);
+				hintdetails.hintcounter =  hintdetails.hintcounter + 1;
+				console.log('hintcounter: ' + hintdetails.hintcounter);
 			}
 
 			function hintTimerHelper(startTime) {
@@ -104,34 +144,54 @@ app.controller('gameTestController', function($scope, $http, $interval, $window)
 			function stopHintTimer() {
 
 				$interval.cancel(hintTimerInterval);
+				hintdetails.hinttime = hintdetails.hinttime + $scope.hintTimer;
 			}
 
 
 			$scope.yesPressed = function() {
 
+				if(questions[counter][2] === true) {
+					userdata.correctAnswers.push(1);
+				} else {
+					userdata.correctAnswers.push(0);
+				}
+
 				counter++;
 				stopQuestionTimer();
+				userdata.hint.push(hintdetails);
+
+				startGame();
+			}
+
+			$scope.noPressed = function() {
+
+				if(questions[counter][2] === false) {
+					userdata.correctAnswers.push(1);
+				} else {
+					userdata.correctAnswers.push(0);
+				}
+
+				counter++;
+				stopQuestionTimer();
+
+
+				userdata.hint.push(hintdetails);
+
 				startGame();
 			}
 
 			$scope.hintButton = function() {
-				$scope.hint = true;
-				hintCheckCounter++;
+				$scope.hidden.hint = true;
 				startHintTimer();
 			}
 
 			$scope.modalClose = function() {
 
-				$scope.hint = false;
+				$scope.hidden.hint = false;
 				stopHintTimer();
 			}
 
-			$scope.noPressed = function() {
-
-				counter++;
-				stopQuestionTimer();
-				startGame();
-			}
+			
 		}
 	}
 
