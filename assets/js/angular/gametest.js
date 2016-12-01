@@ -29,7 +29,6 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 		$scope.hidden.information = false;
 		$scope.hidden.gametest = true;
-		$scope.hidden.modalview = false;
 
 
 		var questionTimerInterval;
@@ -71,25 +70,12 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 			//----------------------------------------------------
 			if(counter == questions.length) {
 
-				if(usercurrent[1] == 3 ) {
-					usercurrent = parseInt(usercurrent) + 8;
-				} else {
-					usercurrent = parseInt(usercurrent) + 1;
-				}
+				$scope.gamesleft = 3 - usercurrent[1];
 
-				$http({
-					url: '/game/end',
-					method: 'POST',
-					data: {
-						usercurrent: usercurrent,
-						userresult: userdata
-					}
-				}).then(function success(res) {
+				$scope.hidden.gametest = false;
+				$scope.hidden.endgame = true;
 
-					$window.location.href = '/dashboard'
-				}, function error(err) {
-					console.log(err.data);
-				});
+				
 
 			}
 			//----------------------------------------------------
@@ -189,6 +175,31 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 				$scope.hidden.hint = false;
 				stopHintTimer();
+			}
+
+			$scope.dashboard = function() {
+
+
+				if(usercurrent[1] == 3 ) {
+					usercurrent = parseInt(usercurrent) + 8;
+				} else {
+					usercurrent = parseInt(usercurrent) + 1;
+				}
+
+				$http({
+					url: '/game/end',
+					method: 'POST',
+					data: {
+						usercurrent: usercurrent,
+						userresult: userdata
+					}
+				}).then(function success(res) {
+
+					$window.location.href = '/dashboard'
+				}, function error(err) {
+					console.log(err.data);
+				});
+
 			}
 
 			

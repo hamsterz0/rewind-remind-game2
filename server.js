@@ -192,6 +192,10 @@ app.get('/game/gettestwords', requireLogin, function(req, res) {
         }
     }
 
+    if(current === 1000) {
+        return res.json(words);
+    }
+
     var week = 'w' + '1';
     var game = 'g' + '1';
 
@@ -206,9 +210,15 @@ app.get('/game/test', requireLogin, function(req, res) {
     res.render('gametest.ejs');
 });
 
-app.get('/game/helperModal.ejs', requireLogin, function(req, res) {
 
-    res.render('helperModal.ejs');
+app.get('/game/results', requireLogin, function(req, res) {
+
+    models.playerdata.findOne({
+        userID: req.user._id
+    }).then(function(data) {
+
+        return res.json(data);
+    });
 });
 
 
