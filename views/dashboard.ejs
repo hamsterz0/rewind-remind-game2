@@ -157,7 +157,7 @@
 
 
                 <div class="column box-col">
-                    <a class="button is-success is-large" href="/game/memorize">Game 1</a>
+                    <a class="button is-success is-large" href="/game/memorize/11">Game 1</a>
                     <br>
                     <% if(user.current >= 12) { %>
                         <a class="button is-warning" style="margin-top: 10px" ng-click="result11()">Result</a>
@@ -167,7 +167,7 @@
 
                 <div class="column box-col">
                     <% var color1; var disabled1; var lock1; if(user.current < 12) {color1 = "is-danger"; disabled1 = 'is-disabled'; lock1='fa fa-lock fa-2x is-overlay';} else {disabled1 = ''; lock1=''; color1 = "is-success"; } %>
-                    <a href="/game/memorize" class="button <%= color1 %> is-large <%= disabled1 %>">
+                    <a href="/game/memorize?value=12" class="button <%= color1 %> is-large <%= disabled1 %>">
                         <i class=" <%= lock1 %> text-center"></i>Game 2</a>
                     <br>
                     <% if(user.current >= 13) { %>
@@ -178,7 +178,7 @@
 
                 <div class="column box-col">
                     <% var color2; var disabled2; var lock2; if(user.current < 13) {color2 = "is-danger"; disabled2 = 'is-disabled'; lock2 = 'fa fa-lock fa-2x is-overlay'; } else {color2 = "is-success"; disabled2 = ''; lock2 = '';} %>
-                    <a href="/game/memorize" class="button is-large <%= color2 %> <%= disabled2 %>"><i class=" <%= lock2 %> text-center"></i>Game 3</a>
+                    <a href="/game/memorize?value=13" class="button is-large <%= color2 %> <%= disabled2 %>"><i class=" <%= lock2 %> text-center"></i>Game 3</a>
                     <br>
                     <% if(user.current >= 21) { %>
                         <a class="button is-warning" style="margin-top: 10px" ng-click="result13()">Result</a>
@@ -202,7 +202,7 @@
 
                 <div class="column box-col">
                     <% var color3; var disabled3; var lock3; if(user.current < 21) {color3="is-danger"; disabled3 = 'is-disabled'; lock3 = 'fa fa-lock fa-2x is-overlay'; } else {color3="is-success"; disabled3 = ''; lock3 = '';} %>
-                    <a href="/game/memorize" class="button <%= color3 %> is-large <%= disabled3 %>"><i class="text-center <%= lock3 %>"></i>Game 1</a>
+                    <a href="/game/memorize?value=21" class="button <%= color3 %> is-large <%= disabled3 %>"><i class="text-center <%= lock3 %>"></i>Game 1</a>
                     <br>
                     <% if(user.current >= 22) { %>
                         <a class="button is-warning" style="margin-top: 10px" ng-click="result21()">Result</a>
@@ -212,7 +212,7 @@
 
                 <div class="column box-col">
                     <% var color4; var disabled4; var lock4; if(user.current < 22) {color4="is-danger"; disabled4 = 'is-disabled'; lock4 = 'fa fa-lock fa-2x is-overlay'; } else {color4="is-success"; disabled4 = ''; lock4 = '';} %>
-                    <a href="/game/memorize" class="button <%= color4 %> is-large <%= disabled4 %>"><i class="text-center <%= lock4 %>"></i>Game 2</a>
+                    <a href="/game/memorize?value=22" class="button <%= color4 %> is-large <%= disabled4 %>"><i class="text-center <%= lock4 %>"></i>Game 2</a>
                     <br>
                     <% if(user.current >= 23) { %>
                         <a class="button is-warning" style="margin-top: 10px" ng-click="result22()">Result</a>
@@ -222,7 +222,7 @@
 
                 <div class="column box-col">
                     <% var color5; var disabled5; var lock5; if(user.current < 23) {color5="is-danger"; disabled5 = 'is-disabled'; lock5 = 'fa fa-lock fa-2x is-overlay'; } else {color5="is-success"; disabled5 = ''; lock5 = '';} %>
-                    <a href="/game/memorize" class="button <%= color5 %> is-large <%= disabled5 %>"><i class="text-center <%= lock5 %>"></i>Game 3</a>
+                    <a href="/game/memorize?value=23" class="button <%= color5 %> is-large <%= disabled5 %>"><i class="text-center <%= lock5 %>"></i>Game 3</a>
                     <br>
                     <% if(user.current >= 31) { %>
                         <a class="button is-warning" style="margin-top: 10px" ng-click="result23()">Result</a>
@@ -244,7 +244,7 @@
 
                 <div class="column box-col">
                     <% var color6; var disabled6; var lock6; if(user.current < 31) {color6="is-danger"; disabled6 = 'is-disabled'; lock6 = 'fa fa-lock fa-2x is-overlay'; } else {color6="is-success"; disabled6 = ''; lock6 = '';} %>
-                    <a href="/game/memorize" class="button <%= color6 %> is-large <%= disabled6 %>"> <i class="text-center <%= lock6 %>"></i>Game 1</a>
+                    <a href="/game/memorize?value=31" class="button <%= color6 %> is-large <%= disabled6 %>"> <i class="text-center <%= lock6 %>"></i>Game 1</a>
                     <br>
                     <% if(user.current >= 32) { %>
                         <a class="button is-warning" style="margin-top: 10px" ng-click="result31()">Result</a>
@@ -254,7 +254,7 @@
 
                 <div class="column box-col">
                     <% var color7; var disabled7; var lock7; if(user.current < 32){ color7="is-danger"; disabled7 = 'is-disabled'; lock7 = 'fa fa-lock fa-2x is-overlay'} else{color7="is-success"; disabled7 = ''; lock7="" }%>
-                    <a href="/game/memorize" class="button <%= color7 %> is-large <%= disabled7 %>"><i class="text-center <%= lock7 %>"></i>Game 2</a>
+                    <a href="/game/memorize?value=32" class="button <%= color7 %> is-large <%= disabled7 %>"><i class="text-center <%= lock7 %>"></i>Game 2</a>
                     <br>
                     <% if(user.current >= 33) { %>
                         <a class="button is-warning" style="margin-top: 10px" ng-click="result32()">Result</a>
@@ -264,7 +264,7 @@
 
                 <div class="column box-col">
                     <% var color8; var disabled8; var lock8; if(user.current < 33){ color8="is-danger"; disabled8 = 'is-disabled'; lock8 = 'fa fa-lock fa-2x is-overlay'} else{color8="is-success"; disabled8 = ''; lock8="" }%>
-                    <a href="/game/memorize" class="button <%= color8 %> is-large <%= disabled8 %>"><i class="text-center <%= lock8 %>"></i>Game 3</a>
+                    <a href="/game/memorize?value=33" class="button <%= color8 %> is-large <%= disabled8 %>"><i class="text-center <%= lock8 %>"></i>Game 3</a>
                     <br>
                     <% if(user.current >= 41) { %>
                         <a class="button is-warning" style="margin-top: 10px" ng-click="result33()">Result</a>

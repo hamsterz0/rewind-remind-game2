@@ -82,6 +82,16 @@ function requireLogin(req, res, next) {
         next();
     }
 }
+
+function gameCurrentStage(req, res, next) {
+
+    if(req.params.id > req.user.current) {
+        res.redirect('/game/memorize/' + req.user.current);
+    }
+
+    next();
+}
+
 //routes
 
 //-------------GET REQUESTS--------------------
@@ -114,11 +124,11 @@ app.get('/dashboard', requireLogin, function(req, res) {
 app.get('/retrievepass', function(req, res) {
     res.render('retrievepass.ejs');
 });
-app.get('/game/memorize', requireLogin, function(req, res) {
+app.get('/game/memorize/:id', requireLogin, gameCurrentStage, function(req, res) {
     res.render('game.ejs');
 });
 
-app.get('/game/getwords', requireLogin, function(req, res) {
+app.get('/game/getwords', requireLogin, gameCurrentStage, function(req, res) {
 
     var current = req.query.usercurrent;
 
