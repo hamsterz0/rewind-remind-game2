@@ -5,6 +5,7 @@ app.controller('gameController', function($scope, $http, $window) {
 	var wordList;
 	var counter = 1;
 	var usercurrent = window.x;
+	var userplaying = window.userplaying;
 
 	console.log(usercurrent);
 
@@ -27,7 +28,7 @@ app.controller('gameController', function($scope, $http, $window) {
 
 			if(counter == wordList.length-1) {
 				$scope.buttonTitle = 'Finish memorizing';
-				$window.location.href = '/game/test';
+				$window.location.href = '/game/test/' + userplaying;
 			}
 
 			$scope.word1 = wordList[counter][0];

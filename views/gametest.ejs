@@ -5,17 +5,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Rewind-Remind Game</title>
-	<script src="../bower_components/angular/angular.min.js"></script>
-	<script src="../assets/js/angular/gametest.js"></script>
-	<script src="../bower_components/particles.js/particles.min.js"></script>
-    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
-	<link href="../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
-	<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
-	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../../bower_components/angular/angular.min.js"></script>
+	<script src="../../assets/js/angular/gametest.js"></script>
+	<script src="../../bower_components/particles.js/particles.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="../../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
+	<link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
+	<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 
 	<script>
 		x = "<%= user.current %>";
-		ux = "<%= %>"	
+		userplaying = "<%= wg %>";	
 	</script>
 
 	<style>
@@ -182,7 +182,7 @@
 
 
 			<div ng-show="hidden.endgame" class="containerText">
-				<h1 class="text-center" style="font-size: 1.5em; padding: 15px;">Thank you for playing. You have {{gamesleft}} more games left to complete this week.</h1>
+				<h1 class="text-center" style="font-size: 1.5em; padding: 15px;">{{endtext}}</h1>
 
 
 				<div class="container text-center" style="margin: 0 auto">
@@ -203,7 +203,7 @@
 		});
 
 
-		particlesJS.load('particles-js', '../bower_components/particles.js/demo/json-files/game-page-particles.json', function() {
+		particlesJS.load('particles-js', '../../bower_components/particles.js/demo/json-files/game-page-particles.json', function() {
           console.log('callback - particles.js config loaded');
         });
 	</script>

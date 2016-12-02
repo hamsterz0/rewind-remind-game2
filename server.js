@@ -6,7 +6,8 @@ var express         = require('express'),
     models          = require('./models/index.js'),
     session         = require('client-sessions'),
     crypto          = require('crypto'),
-    nodemailer      = require('nodemailer');
+    nodemailer      = require('nodemailer'),
+    UAParser        = require('ua-parser-js');
     
 
 
@@ -33,6 +34,17 @@ function decrypt(text){
 }
 
 //middleware
+app.use(function(req, res, next) {
+    var parser = new UAParser();
+    var ua = req.headers['user-agent'];
+    var browserName = parser.setUA(ua).getBrowser().name;
+
+    if(browserName == 'Firefox') {
+        res.render('sorryFirefox.ejs');
+    }
+
+    next();
+});
 app.use(bodyParser());
 app.use('/bower_components',express.static(path.join(__dirname+'/bower_components')));
 app.use('/assets',express.static(path.join(__dirname+'/assets')));
@@ -92,6 +104,10 @@ function gameCurrentStage(req, res, next) {
     next();
 }
 
+function sorryFirefoxUsers(req, res, next) {
+    
+}
+
 //routes
 
 //-------------GET REQUESTS--------------------
@@ -125,8 +141,14 @@ app.get('/retrievepass', function(req, res) {
     res.render('retrievepass.ejs');
 });
 app.get('/game/memorize/:id', requireLogin, gameCurrentStage, function(req, res) {
-    res.render('game.ejs');
+    res.render('game.ejs', {wg: req.params.id});
 });
+
+app.get('/game/test/:id', requireLogin, function(req, res) {
+
+    res.render('gametest.ejs', {wg: req.params.id});
+});
+
 
 app.get('/game/getwords', requireLogin, gameCurrentStage, function(req, res) {
 
@@ -213,11 +235,6 @@ app.get('/game/gettestwords', requireLogin, function(req, res) {
 
     return res.json(userwords);
 
-});
-
-app.get('/game/test', requireLogin, function(req, res) {
-
-    res.render('gametest.ejs');
 });
 
 
