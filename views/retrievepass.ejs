@@ -45,7 +45,7 @@
         <div class="login-box outline" style="width: 400px">
             <br>
 
-            <p class="text-center"><a href="/login" style="text-decoration: none"> Go back to login</a></p>
+            
         
             <h1 class="title text-center">Retrieve Password</h1>
             
@@ -57,6 +57,8 @@
                 </p>
                 <br>
                 <p class="control text-center"><button class="button is-info is-outlined">Send Email</button></p>
+                <br><br>
+                <p class="text-center"><a href="/login" style="text-decoration: none"> Go back to login</a></p>
             </form>
 
             <% if (typeof error !== 'undefined') { %>
@@ -64,7 +66,6 @@
                 <p class="control">
                     <p class="help is-danger text-center" style="font-size: 14px"><%= error %></p>
                     <br>
-                    <p class="text-center"><a href="/login">Back to login page</a></p>
                 </p>
                 <br>
             <% } %>

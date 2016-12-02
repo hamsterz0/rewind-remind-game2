@@ -37,6 +37,14 @@ app.controller('dashboardController', function($scope, $http) {
 						entry.push("wrong");
 					}
 
+					entry.push(userresult.questionTime[i]);
+
+					if(userresult.hint[i].hintcounter > 0) {
+						entry.push("yes");
+					} else {
+						entry.push("no");
+					}
+
 					i++;
 				});
 

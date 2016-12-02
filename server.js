@@ -154,88 +154,45 @@ app.get('/game/getwords', requireLogin, gameCurrentStage, function(req, res) {
 
     var current = req.query.usercurrent;
 
-    var words = {
-        w1: {
-            g1: [
-                ['w1w1s1', 'w1w1s2', 'some hint 1'],
-                ['w1w2s1', 'w1w2s2', 'some hint 2'],
-                ['w1w3s1', 'w1w3s2', 'some hint 3'],
-                ['w1w4s1', 'w1w4s2', 'some hint 4'],
-                ['w1w5s1', 'w1w5s2', 'some hint 5'],
-                ['w1w6s1', 'w1w6s2', 'some hint 6'],
-                ['w1w7s1', 'w1w7s2', 'some hint 7'],
-                ['w1w8s1', 'w1w8s2', 'some hint 8'],
-                ['w1w9s1', 'w1w9s2', 'some hint 9'],
-                ['w1w10s1', 'w1w10s2', 'some hint 10'],
-            ],
-            g2: [
-                ['w2w1s1', 'w2w1s2', 'some hint 1'],
-                ['w2w2s1', 'w2w2s2', 'some hint 2'],
-                ['w2w3s1', 'w2w3s2', 'some hint 3'],
-                ['w2w4s1', 'w2w4s2', 'some hint 4'],
-                ['w2w5s1', 'w2w5s2', 'some hint 5'],
-                ['w2w6s1', 'w2w6s2', 'some hint 6'],
-                ['w2w7s1', 'w2w7s2', 'some hint 7'],
-                ['w2w8s1', 'w2w8s2', 'some hint 8'],
-                ['w2w9s1', 'w2w9s2', 'some hint 9'],
-                ['w2w10s1', 'w2w10s2', 'some hint 10'],
-            ],
-        }
-    }
-
     var week = 'w' + 1;
     var game = 'g' + 1;
 
-    var userwords = words[week][game]
+    models.words.find({}, {memorizewords:1, _id: 0}).then(function success(response) {
 
-    return res.json(userwords);
+        
+        var words = response[0].memorizewords;
+        var userwords = words[week][game]
+
+        return res.json(userwords);
+    }).catch(function(err) {
+
+    });
+
 });
 
 app.get('/game/gettestwords', requireLogin, function(req, res) {
 
     var current = req.query.usercurrent;
 
-    var words = {
-        w1: {
-            g1: [
-                ['w1w1s1', 'w1w1s2', true],
-                ['w1w2s1', 'w1w2s2', false],
-                ['w1w3s1', 'w1w3s2', false],
-                ['w1w4s1', 'w1w4s2', true],
-                ['w1w5s1', 'w1w5s2', false],
-                ['w1w6s1', 'w1w6s2', true],
-                ['w1w7s1', 'w1w7s2', false],
-                ['w1w8s1', 'w1w8s2', true],
-                ['w1w9s1', 'w1w9s2', false],
-                ['w1w10s1', 'w1w10s2', false],
-            ],
-            g2: [
-                ['w2w1s1', 'w2w1s2', true],
-                ['w2w2s1', 'w2w2s2', false],
-                ['w2w3s1', 'w2w3s2', true],
-                ['w2w4s1', 'w2w4s2', false],
-                ['w2w5s1', 'w2w5s2', true],
-                ['w2w6s1', 'w2w6s2', true],
-                ['w2w7s1', 'w2w7s2', false],
-                ['w2w8s1', 'w2w8s2', true],
-                ['w2w9s1', 'w2w9s2', false],
-                ['w2w10s1', 'w2w10s2', false],
-            ],
-        }
-    }
-
     if(current === 1000) {
         return res.json(words);
     }
 
-    var week = 'w' + '1';
-    var game = 'g' + '1';
+    var week = 'w' + 1;
+    var game = 'g' + 1;
 
-    var userwords = words[week][game];
+    models.words.find({}, {memorizewords:1, _id: 0}).then(function success(response) {
 
-    return res.json(userwords);
+        
+        var words = response[0].memorizewords;
+        var userwords = words[week][game]
 
+        return res.json(userwords);
+    }).catch(function(err) {
+        
+    });
 });
+
 
 
 app.get('/game/results', requireLogin, function(req, res) {
@@ -503,6 +460,6 @@ app.post('/game/test', function(req, res) {
 
 
 
-app.listen(port, function() {
+app.listen(port, function() {   
     console.log('Listening on port ' + port);
 });

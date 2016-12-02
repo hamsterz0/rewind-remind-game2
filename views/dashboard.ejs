@@ -79,20 +79,32 @@
                     <thead>
                         <tr>
                             <th>
-                                Pair
+                                Word Pair
                             </th>
                             <th>
                                 Solution
+                            </th>
+                            <th>
+                                Time Taken To Answer
+                            </th>
+                            <th>
+                                Hint Used?
                             </th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>
-                                Pair
+                                Word Pair
                             </th>
                             <th>
                                 Solution
+                            </th>
+                            <th>
+                                Time Taken To Answer
+                            </th>
+                            <th>
+                                Hint Used?
                             </th>
                         </tr>
                     </tfoot>
@@ -100,12 +112,14 @@
                         <tr ng-repeat="wordpair in words">
                             <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[0]}} - {{wordpair[1]}}</strong></td>
                             <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[3]}}</strong></td>
+                            <td class="text-center" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[4]}}</strong></td>
+                            <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[5]}}</strong></td>
                         </tr>
                     </tbody>
                 </table>
             </section>
             <footer class="modal-card-foot">
-                <p class="text-center" style="color: red">This will show the results of the game you played the first time. You can play the game again for practice but your answers would not be recorded.</p>
+                <p class="text-center" style="color: red">This will show the results of the game you played the first time. You can play the game again for practice but your new answers would not be recorded.</p>
             </footer>
         </div>
     </div>
