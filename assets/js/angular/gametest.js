@@ -102,6 +102,8 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 			$scope.word1 = questions[counter][0];
 			$scope.word2 = questions[counter][1];
 
+			console.log(questions);
+
 			startQuestionTimer();
 
 			function startQuestionTimer() {

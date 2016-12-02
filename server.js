@@ -181,10 +181,10 @@ app.get('/game/gettestwords', requireLogin, function(req, res) {
     var week = 'w' + 1;
     var game = 'g' + 1;
 
-    models.words.find({}, {memorizewords:1, _id: 0}).then(function success(response) {
+    models.words.find({}, {testwords:1, _id: 0}).then(function success(response) {
 
         
-        var words = response[0].memorizewords;
+        var words = response[0].testwords;
         var userwords = words[week][game]
 
         return res.json(userwords);
