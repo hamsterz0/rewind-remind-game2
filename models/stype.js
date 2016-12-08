@@ -7,7 +7,10 @@ var subjectTypeSchema = mongoose.Schema({
     SGEO:   Number,
     DE:     Number,
     DEY:    Number,
-    DEO:    Number
+    DEO:    Number,
+    CG:     Number,
+    CGO:    Number,
+    CGY:    Number
 });
 
 var SubjectTypeModel = mongoose.model('SubjectTypeModel', subjectTypeSchema);

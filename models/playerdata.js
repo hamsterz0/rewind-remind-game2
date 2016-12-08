@@ -29,7 +29,7 @@ var playerDataSchema = mongoose.Schema({
             },
             game2: {
                 questionTime: [],
-                hintTime: [],
+                hint: [],
                 correctAnswers: []
             },
             game3: {

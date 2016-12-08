@@ -34,17 +34,17 @@ function decrypt(text){
 }
 
 //middleware
-app.use(function(req, res, next) {
-    var parser = new UAParser();
-    var ua = req.headers['user-agent'];
-    var browserName = parser.setUA(ua).getBrowser().name;
+// app.use(function(req, res, next) {
+//     var parser = new UAParser();
+//     var ua = req.headers['user-agent'];
+//     var browserName = parser.setUA(ua).getBrowser().name;
 
-    if(browserName == 'Firefox') {
-        res.render('sorryFirefox.ejs');
-    }
+//     if(browserName == 'Firefox') {
+//         res.render('sorryFirefox.ejs');
+//     }
 
-    next();
-});
+//     next();
+// });
 app.use(bodyParser());
 app.use('/bower_components',express.static(path.join(__dirname+'/bower_components')));
 app.use('/assets',express.static(path.join(__dirname+'/assets')));
@@ -87,6 +87,60 @@ app.use(function(req, res, next) {
     }
 });
 
+function completionEmail(req, res, next) {
+
+    if(req.user.current == 41) {
+        if(req.user.completionEmail === false) {
+
+
+            models.auth.update({_id: req.user._id}, {
+                $set: {
+                    completionEmail: true
+                }
+            }, function(err, result) {
+                var rEmail1 = 'thearnavgarg@gmail.com';
+
+                var emails = req.user.email + ', '+ rEmail1; 
+
+                var transporter = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'labheracleia',
+                        pass: 'blackcatpassillusion'
+                    }
+                });
+                var text = "Hello " + req.user.firstname + ", \n" + "Thank you for completing the game";
+                var mailOptions = {
+                    from: 'Heracleia Lab',
+                    to: emails,
+                    subject: 'Thank you for completing the Rewind-Remind Game',
+                    text: text
+                };
+                transporter.sendMail(mailOptions, function(error, info){
+                    if(error){
+                        console.log(error);
+                    }else{
+                        console.log('Message sent: ' + info.response);
+                        // res.render('successful.ejs', {mssg: 'Check your email'});
+                    };
+                });
+                next();
+            });
+        }
+    }
+    next();
+}
+
+
+function controlgroupusers(req, res, next) {
+
+    if(req.user.stype[0] == 'C') {
+        next();
+    } else {
+        res.redirect('/dashboard');
+    }
+}
+
 function requireLogin(req, res, next) {
     if(!req.user) {
         res.redirect('/login');
@@ -99,6 +153,15 @@ function gameCurrentStage(req, res, next) {
 
     if(req.params.id > req.user.current) {
         res.redirect('/game/memorize/' + req.user.current);
+    }
+
+    next();
+}
+
+function gameCurrentStage4CG(req, res, next) {
+
+    if(req.params.id > req.user.current) {
+        res.redirect('/game/testuser/' + req.user.current);
     }
 
     next();
@@ -132,7 +195,7 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-app.get('/dashboard', requireLogin, function(req, res) {
+app.get('/dashboard', requireLogin, completionEmail, function(req, res) {
     console.log('coming here from /game/test');
     res.render('dashboard.ejs');
 });
@@ -148,6 +211,13 @@ app.get('/game/test/:id', requireLogin, function(req, res) {
 
     res.render('gametest.ejs', {wg: req.params.id});
 });
+
+
+app.get('/game/testuser/:id', requireLogin, controlgroupusers, gameCurrentStage4CG, function(req, res) {
+    
+    res.render('gametestuser.ejs', {wg: req.params.id});
+});
+
 
 
 app.get('/game/getwords', requireLogin, gameCurrentStage, function(req, res) {
@@ -205,6 +275,16 @@ app.get('/game/results', requireLogin, function(req, res) {
     });
 });
 
+app.get('/practice', requireLogin, function(req, res) {
+
+    res.send('hello');
+});
+
+app.get('/practiceround', requireLogin, function(req, res) {
+
+    res.send('hello');
+});
+
 
 //----------------POST REQUESTS--------------------
 app.post('/register', function(req, res) {
@@ -214,45 +294,77 @@ app.post('/register', function(req, res) {
     }).then(function(data) {
         var age = req.body.age;
 
-        if(data.DE > data.SGE) {
+
+        if(age > 50) {
+
+            if(data.SGEO <= data.DEO && data.CGO == data.DEO) {
             req.body.stype = 'SGE';
             data.SGE += 1;
-            if(age > 50) {
-                data.SGEO += 1;
-            } else {
-                data.SGEY += 1;
-            }
-        } else if(data.SGE > data.DE){
-            req.body.stype = 'DE';
-            data.DE += 1;
-            if(age > 50) {
+            data.SGEO += 1;
+            } else if(data.DEO <= data.CGO) {
+                req.body.stype = 'DE';
+                data.DE += 1;
                 data.DEO += 1;
             } else {
-                data.DEY += 1;
+                req.body.stype = 'CG';
+                data.CG += 1;
+                data.CGO += 1;
             }
         } else {
-            if(age < 50) {
-                if(data.DEY >= data.SGEY) {
-                    req.body.stype = 'SGE';
-                    data.SGEY += 1;
-                    data.SGE += 1;
-                } else {
-                    req.body.stype = 'DE';
-                    data.DE += 1;
-                    data.DEY += 1;
-                }
+            if(data.SGEY <= data.DEY && data.CGY == data.DEY) {
+            req.body.stype = 'SGE';
+            data.SGE += 1;
+            data.SGEY += 1;
+            } else if(data.DEY <= data.CGY) {
+                req.body.stype = 'DE';
+                data.DE += 1;
+                data.DEY += 1;
             } else {
-                 if(data.DEO >= data.SGEO) {
-                    req.body.stype = 'SGE';
-                    data.SGEO += 1;
-                    data.SGE += 1;
-                } else {
-                    req.body.stype = 'DE';
-                    data.DE += 1;
-                    data.DEO += 1;
-                }
+                req.body.stype = 'CG';
+                data.CG += 1;
+                data.CGY += 1;
             }
         }
+
+        // if(data.DE > data.SGE) {
+        //     req.body.stype = 'SGE';
+        //     data.SGE += 1;
+        //     if(age > 50) {
+        //         data.SGEO += 1;
+        //     } else {
+        //         data.SGEY += 1;
+        //     }
+        // } else if(data.SGE > data.DE){
+        //     req.body.stype = 'DE';
+        //     data.DE += 1;
+        //     if(age > 50) {
+        //         data.DEO += 1;
+        //     } else {
+        //         data.DEY += 1;
+        //     }
+        // } else {
+        //     if(age < 50) {
+        //         if(data.DEY >= data.SGEY) {
+        //             req.body.stype = 'SGE';
+        //             data.SGEY += 1;
+        //             data.SGE += 1;
+        //         } else {
+        //             req.body.stype = 'DE';
+        //             data.DE += 1;
+        //             data.DEY += 1;
+        //         }
+        //     } else {
+        //          if(data.DEO >= data.SGEO) {
+        //             req.body.stype = 'SGE';
+        //             data.SGEO += 1;
+        //             data.SGE += 1;
+        //         } else {
+        //             req.body.stype = 'DE';
+        //             data.DE += 1;
+        //             data.DEO += 1;
+        //         }
+        //     }
+        // }
 
         models.stype.update({_id: data._id}, {
             $set: {
@@ -262,7 +374,10 @@ app.post('/register', function(req, res) {
                 SGEO:   data.SGEO,
                 DE:     data.DE,
                 DEY:    data.DEY,
-                DEO:    data.DEO
+                DEO:    data.DEO,
+                CG:     data.CG,
+                CGY:    data.CGY,
+                CGO:    data.CGO
             }
         }, function(err, result) {
 
@@ -421,11 +536,11 @@ app.post('/retrievepass', function(req, res) {
                     pass: 'blackcatpassillusion'
                 }
             });
-            var text = "Hello " + user.firstname + ", \n" + "Your password is: " + decrypt(user.password);
+            var text = "Hello " + user.firstname + ", \nThe password to your account has been provided below.\n For any further questions, please contact Arnav Garg at arnav.garg@mavs.uta.edu\n\n" + "Your password is: " + decrypt(user.password);
             var mailOptions = {
                 from: 'thearnavgarg@gmail.com',
                 to: user.email,
-                subject: 'Lost Password',
+                subject: 'Lost Password [PASSWORD MADE VISIBLE IN PLAIN TEXT]',
                 text: text
             };
             transporter.sendMail(mailOptions, function(error, info){
@@ -460,6 +575,6 @@ app.post('/game/test', function(req, res) {
 
 
 
-app.listen(port, function() {   
+app.listen(port,function() {   
     console.log('Listening on port ' + port);
 });

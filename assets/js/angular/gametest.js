@@ -1,6 +1,6 @@
 var app = angular.module('myGameTestApp', []);
 
-app.controller('gameTestController', function($scope, $http, $interval, $window, $location) {
+app.controller('gameTestController', function($scope, $http, $interval, $window, $location, $timeout) {
 
 	var userdata = {
 		questionTime: [],
@@ -13,13 +13,15 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 		information: true,
 		gametest: false,
 		hint: false,
+		answerresult: false,
 		endgame: false
 	}
 
 	
 
 	var usercurrent = window.x;
-	var userplaying = window.userplaying;
+	var userplaying = window.up;
+
 	var counter = 0;
 	var questions;
 	$scope.hintsolutions;
@@ -76,8 +78,6 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 				if(userplaying == usercurrent) {
 					gamesleft = 3 - usercurrent[1];
 
-					console.log(usercurrent);
-
 					if(usercurrent[1] == 3) {}
 
 					$scope.endtext = "Thank you for playing. You have " + gamesleft + " more games left to complete this week.";
@@ -95,14 +95,13 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 				$scope.hidden.gametest = false;
 				$scope.hidden.endgame = true;
+				$scope.hidden.answerresult = false;
 
 			}
 			//----------------------------------------------------
 
 			$scope.word1 = questions[counter][0];
 			$scope.word2 = questions[counter][1];
-
-			console.log(questions);
 
 			startQuestionTimer();
 
@@ -136,7 +135,6 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 				hintTimerHelper(0);
 				hintdetails.hintcounter =  hintdetails.hintcounter + 1;
-				console.log('hintcounter: ' + hintdetails.hintcounter);
 			}
 
 			function hintTimerHelper(startTime) {
@@ -159,23 +157,31 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 				if(questions[counter][2] === true) {
 					userdata.correctAnswers.push(1);
+					answerview('Correct!');
 				} else {
 					userdata.correctAnswers.push(0);
+					answerview('Wrong!');
 				}
 
 				counter++;
 				stopQuestionTimer();
 				userdata.hint.push(hintdetails);
 
-				startGame();
+				var displaytime = $timeout(function() {
+					$scope.hidden.gametest = true;
+					$scope.hidden.answerresult = false;
+					startGame();
+				}, 1000);
 			}
 
 			$scope.noPressed = function() {
 
 				if(questions[counter][2] === false) {
 					userdata.correctAnswers.push(1);
+					answerview('Correct!');
 				} else {
 					userdata.correctAnswers.push(0);
+					answerview('Wrong!');
 				}
 
 				counter++;
@@ -184,7 +190,11 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 				userdata.hint.push(hintdetails);
 
-				startGame();
+				var displaytime = $timeout(function() {
+					$scope.hidden.gametest = true;
+					$scope.hidden.answerresult = false;
+					startGame();
+				}, 1000);
 			}
 
 			$scope.hintButton = function() {
@@ -205,7 +215,7 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 					$window.location.href = '/dashboard';
 				} else {
 					if(usercurrent[1] == 3 ) {
-					usercurrent = parseInt(usercurrent) + 8;
+						usercurrent = parseInt(usercurrent) + 8;
 					} else {
 						usercurrent = parseInt(usercurrent) + 1;
 					}
@@ -225,6 +235,30 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 					});
 
 				}
+				
+			}
+
+			var answerview = function(result) {
+
+				console.log('answerview called');
+
+				$scope.hidden.gametest = false;
+				$scope.hidden.answerresult = true;
+
+
+				console.log('timeout is working');
+				$scope.answerresult = result;
+
+				// if(counter !== questions.length-1) {
+
+				// 	var displaytime = $timeout(function() {
+
+				// 		$scope.hidden.gametest = true;
+				// 		$scope.hidden.answerresult = false;
+
+
+				// 	}, 1000);
+				// } 
 				
 			}
 

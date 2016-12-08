@@ -4,9 +4,14 @@ app.controller('dashboardController', function($scope, $http) {
 
 	$scope.userresult;
 	$scope.hidden = {
-		hint: false
+		hint: false,
+		practiceModal: true
 	}
 
+	$scope.cancelPractice = function() {
+
+		$scope.hidden.practiceModal = false;
+	}
 
 	$http({
 		url: '/game/results',
@@ -57,7 +62,7 @@ app.controller('dashboardController', function($scope, $http) {
 			}
 
 			$scope.result12 = function() {
-				
+
 				$scope.words = JSON.parse(JSON.stringify(res.data));
 
 				var userresult = $scope.results.gameresults.week1.game2;
@@ -126,7 +131,9 @@ app.controller('dashboardController', function($scope, $http) {
 
 				$scope.words = JSON.parse(JSON.stringify(res.data));
 
+
 				var userresult = $scope.results.gameresults.week2.game1;
+				console.log(userresult);
 				var i = 0;
 
 				$scope.words.forEach(function(entry) {
@@ -158,6 +165,7 @@ app.controller('dashboardController', function($scope, $http) {
 				$scope.words = JSON.parse(JSON.stringify(res.data));
 
 				var userresult = $scope.results.gameresults.week2.game2;
+				console.log(userresult);
 				var i = 0;
 
 				$scope.words.forEach(function(entry) {
@@ -279,7 +287,7 @@ app.controller('dashboardController', function($scope, $http) {
 
 			$scope.result33 = function() {
 
-				$scope.words = JSON.parse(JSON.stringify(res.data));
+				$scope.words = JSON.parse(JSON.stringify(res.data));		
 
 				var userresult = $scope.results.gameresults.week3.game3;
 				var i = 0;

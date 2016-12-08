@@ -29,6 +29,10 @@ var authSchema = mongoose.Schema({
     current: {
         type: Number,
         default: 11
+    },
+    completionEmail: {
+        type: Boolean,
+        default: false
     }
 });
 
