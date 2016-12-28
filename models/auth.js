@@ -33,6 +33,10 @@ var authSchema = mongoose.Schema({
     completionEmail: {
         type: Boolean,
         default: false
+    },
+    practiceRound: {
+        type: Boolean,
+        default: false
     }
 });
 

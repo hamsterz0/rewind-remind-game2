@@ -277,12 +277,12 @@ app.get('/game/results', requireLogin, function(req, res) {
 
 app.get('/practice', requireLogin, function(req, res) {
 
-    res.send('hello');
+    res.render('game.ejs', {practice: true});
 });
 
 app.get('/practiceround', requireLogin, function(req, res) {
 
-    res.send('hello');
+    res.render('practiceround.ejs');
 });
 
 
@@ -536,7 +536,8 @@ app.post('/retrievepass', function(req, res) {
                     pass: 'blackcatpassillusion'
                 }
             });
-            var text = "Hello " + user.firstname + ", \nThe password to your account has been provided below.\n For any further questions, please contact Arnav Garg at arnav.garg@mavs.uta.edu\n\n" + "Your password is: " + decrypt(user.password);
+            var text = "Hello " + user.firstname + ", \nThe password to your account has been provided below.\n " + 
+                   "For any further questions, please contact Arnav Garg at arnav.garg@mavs.uta.edu\n\n" + "Your password is: " + decrypt(user.password);
             var mailOptions = {
                 from: 'thearnavgarg@gmail.com',
                 to: user.email,
@@ -570,6 +571,21 @@ app.post('/game/test', function(req, res) {
         return res.json({ redirect: '/game/test' })
     }
 
+});
+
+app.post('/practiceComplete', function(req, res) {
+
+    models.auth.update({_id: req.user._id}, {
+        $set: {
+            practiceRound: true
+        }
+    }, function(err, result) {
+        
+        res.redirect('/dashboard');
+
+    });
+
+    res.redirect('/dashboard');
 });
 
 

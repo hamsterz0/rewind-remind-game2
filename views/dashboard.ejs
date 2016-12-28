@@ -69,7 +69,7 @@
 
     <% var link; if(user.stype[0] == 'C') link = '/game/testuser/'; else link = '/game/memorize/'; %> 
 
-    <% console.log(user.current); if(user.current == 41) { %>
+    <% if(user.current == 41 && user.practiceRound == false) { %>
         
         <div class="modal" ng-class="{'is-active': hidden.practiceModal}">
             <div class="modal-background"></div>

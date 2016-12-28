@@ -248,17 +248,6 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 				console.log('timeout is working');
 				$scope.answerresult = result;
-
-				// if(counter !== questions.length-1) {
-
-				// 	var displaytime = $timeout(function() {
-
-				// 		$scope.hidden.gametest = true;
-				// 		$scope.hidden.answerresult = false;
-
-
-				// 	}, 1000);
-				// } 
 				
 			}
 
