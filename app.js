@@ -35,9 +35,12 @@ function decrypt(text){
 app.use(bodyParser());
 app.use('/bower_components',express.static(path.join(__dirname+'/bower_components')));
 app.use('/assets',express.static(path.join(__dirname+'/assets')));
+
 app.use(session({
     cookieName: 'session',
-    secret: 'some_long_random_string'
+    secret: 'some_long_random_string',
+    duration: 24 * 60 * 60 * 1000,
+    activeDuration: 1000 * 60 * 5
 }));
 
 app.use(function(req, res, next) {
@@ -136,6 +139,14 @@ function requireLogin(req, res, next) {
     }
 }
 
+function redirectToDashboard(req, res, next) {
+    if(req.session && req.session.user) {
+        res.redirect('/dashboard');
+    } else {
+        next();
+    }
+}
+
 function gameCurrentStage(req, res, next) {
 
     if(req.params.id > req.user.current) {
@@ -184,7 +195,7 @@ app.get('/welcome', function(req, res) {
     res.render('index.ejs');
 });
 
-app.get('/login', function(req, res) {
+app.get('/login', redirectToDashboard, function(req, res) {
     res.render('login.ejs');
 });
 
