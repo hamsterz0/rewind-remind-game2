@@ -13,27 +13,24 @@ app.controller('gameController', function($scope, $http, $window, $timeout) {
 	$scope.buttonTitle = "Next Set";
 
 	$http({
-			url: '/game/getwords',
+			url: '/game/getpracticewords',
 			method: 'GET',
 			params: {usercurrent: usercurrent}
 		}).then(function getCallback(response) {
 
 		wordList = response.data;
-		console.log(wordList);
 
 		$scope.word1 = wordList[0][0];
 		$scope.word2 = wordList[0][1];
 		$scope.hint = wordList[0][2];
 
 		$scope.buttonPressed = function() {
-
-			console.log(usertype[0]);
 			
-			if(usertype[0] !== 'D' || similarity($scope.hint, $scope.userinput)*100 >= 75) {
+			if(usertype[0] !== 'D' || similarity("fits into", $scope.userinput)*100 >= 75 || similarity("contains", $scope.userinput)*100 >= 75) {
 
-				if(counter == wordList.length) {
+				if(counter == wordList.length-1) {
 					$scope.buttonTitle = 'Finish memorizing';
-					$window.location.href = '/game/test/' + userplaying;
+					$window.location.href = '/game/practicetest';
 				}
 
 				$scope.word1 = wordList[counter][0];

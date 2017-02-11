@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+	<meta charset="UTF-8">
+	<title>Rewind-Remind Game</title>
+	<script src="../../bower_components/angular/angular.min.js"></script>
+	<script src="../../assets/js/angular/practiceround.js"></script>
+	<script src="../../bower_components/particles.js/particles.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="../../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
+	<link rel="stylesheet" href="../../bower_components/animate.css/animate.min.css">
+
+	<script>
+		var x = "<%= user.current %>";
+		var userplaying = "<%= wg %>";
+		var ut = "<%= user.stype %>"	
+	</script>
+
+	<style>
+
+		html, body {
+			height: 99%;
+			background-color: #9FA8DA;
+		}
+
+		#outPopUp {
+			position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 400px;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+		  	box-shadow: 5px 5px;
+		  	border: 1px solid;
+		  	display: table;
+
+		}
+
+		div#outPopUp .containerText{
+		    margin: 0;
+		    vertical-align: middle;
+		    display: table-cell;
+		}
+
+		.userinput {
+	    /* Other styling.. */
+	    	clear: both;
+		    float:left;
+		}
+
+		.word {
+			font-size: 2em;
+		}
+
+		.user-input-text {
+			font-size: 2em;
+			text-align: center;
+			height: 40px;
+			width: 200px;
+		}
+
+		.hint {
+			margin-top: 20px;
+			font-size: 1.3em;
+		}
+
+		.redcolor {
+			color: red;
+		}
+
+	</style>
+
+
+</head>
+
+
+
+
+<body ng-app="myApp" ng-controller="gameController">
+	
+
+	<div id="particles-js" style="height: 100%">
+		<div id="outPopUp">
+			<div class="containerText">
+				<div class="row row-padding" style="margin-top: 50px">
+
+
+					<div class="col-lg-4">
+						<p class="word pull-right">{{word1}}</p>
+					</div>
+
+
+					<div class="col-lg-4">
+						<input type="text" class="input is-medium" style="text-align: center" ng-model="userinput">
+					</div>
+
+
+					<div class="col-lg-4">
+						<p class="word pull-left">{{word2}}</p>
+					</div>
+
+
+				</div>
+				<br><br><br>
+
+				<div class="container text-center" style="margin: 0 auto">
+					<button class="button is-primary is-medium" ng-class="{'is-disabled': !userinput.length}" ng-click="buttonPressed()">{{buttonTitle}}</button>
+					<% if(user.stype[0] == 'D') { %>
+						<p class="hint" ng-class="{'animated wobble redcolor': emphasizeHint}">Hint: {{hint}}</p>
+					<% } %>
+
+				</div>
+
+				<br>
+				<br>
+
+
+			</div>
+		</div>
+	</div>
+	
+
+	<script>
+		particlesJS.load('particles-js', '../../bower_components/particles.js/demo/json-files/game-page-particles.json', function() {
+          console.log('callback - particles.js config loaded');
+        });
+	</script>
+
+</body>
+
+
+</html>

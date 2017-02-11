@@ -34,7 +34,7 @@ var authSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    practiceRound: {
+    practiceComplete: {
         type: Boolean,
         default: false
     }

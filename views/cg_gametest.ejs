@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+	<meta charset="UTF-8">
+	<title>Rewind-Remind Game</title>
+	<script src="../../bower_components/angular/angular.min.js"></script>
+	<script src="../../assets/js/angular/cg_gametest.js"></script>
+	<script src="../../bower_components/particles.js/particles.min.js"></script>
+    <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="../../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
+	<link href="../../bower_components/animate.css/animate.min.css" rel="stylesheet"></link>
+	<link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
+	<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+
+	<script>
+		x = "<%= user.current %>";
+		userplaying = "<%= wg %>";	
+	</script>
+
+	<style>
+
+		html, body {
+			height: 99%;
+			background-color: #9FA8DA;
+		}
+
+		#outPopUp {
+			position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 450px;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+		  	box-shadow: 5px 5px;
+		  	border: 1px solid;
+		  	display: table;
+
+		}
+
+		div#outPopUp .containerText{
+		    margin: 0;
+		    vertical-align: middle;
+		    display: table-cell;
+		}
+
+		.userinput {
+	    /* Other styling.. */
+	    	clear: both;
+		    float:left;
+		}
+
+		.word {
+			font-size: 2em;
+		}
+
+		.user-input-text {
+			font-size: 2em;
+			text-align: center;
+			height: 40px;
+			width: 200px;
+		}
+
+		.hint {
+			margin-top: 20px;
+			font-size: 1.3em;
+		}
+
+		#yesbutton {
+			margin-right: 10px;
+			width: 150px;
+		}
+		#nobutton {
+			width: 150px;
+		}
+
+		.show {
+			display: none;
+		}
+
+		.redcolor {
+            
+            color: #EF5350;
+        }
+
+        .greencolor {
+            color: #8BC34A;
+        }
+	</style>
+
+
+</head>
+
+
+
+
+<body ng-app="cgApp" ng-controller="cgcontroller">
+
+	<div  id="particles-js" style="height: 100%">
+		<div id="outPopUp">
+
+
+
+
+
+
+
+			<div class="containerText" ng-show="hidden.game">
+				
+				<h1 class="text-center word page-header" style="margin-top: 30px;">Type the word that occors twice below</h1>
+				
+				<div class="row row-padding" style="margin-top: 50px">
+
+					<div class="col-lg-12">
+						<p class="word text-center">{{word1}}</p>
+						<p class="word text-center">{{word2}}</p>
+						<p class="word text-center">{{word3}}</p>
+					</div>
+
+				</div>
+
+				<br>
+
+				<div class="container text-center" style="margin: 0 auto; width: 50%">
+					<input id="textinput" class="input is-success is-medium text-center" ng-model="userinput"></input>
+				</div>
+
+				<div class="container text-center" style="margin: 0 auto; width: 600px; margin-top: 50px">
+					<button class="button is-warning is-medium is-fullwidth" ng-click="nextquestion()">next</button>
+					<h1 style="margin-top: 50px; font-size: 1.3em">Timer: {{questionTimer}} seconds</h1>
+				</div>
+
+				<br>
+				<br>
+			</div>
+
+
+
+
+
+
+
+			<div ng-show="hidden.answerresult" class="containerText">
+				<h1 class="text-center animated tada" style="font-size: 4em; padding: 15px;" ng-class="{greencolor: answerresult == 'Correct!', redcolor: answerresult == 'Wrong!'}">{{answerresult}}</h1>
+			</div>
+
+
+
+
+
+
+			<div ng-show="hidden.endgame" class="containerText">
+				<h1 class="text-center" style="font-size: 1.5em; padding: 15px;">{{endtext}}</h1>
+
+
+				<div class="container text-center" style="margin: 0 auto">
+					<button class="button is-primary is-medium" ng-click="dashboard()" style="margin-top: 50px">Back to dashboard</button>
+				</div>
+			</div>
+			
+
+
+
+
+
+		</div>
+	</div>
+	
+
+	<script>
+
+		$(function() {
+		});
+
+
+		particlesJS.load('particles-js', '../../bower_components/particles.js/demo/json-files/game-page-particles.json', function() {
+          console.log('callback - particles.js config loaded');
+        });
+	</script>
+
+</body>
+
+
+</html>

@@ -14,50 +14,50 @@
     <script src="../assets/js/angular/dashboard.js"></script>
 
     <style>
-        
-        html, body{
-            height: 100%;
-            background-color: #9FA8DA;
-            padding: 20px;
-        }
 
-        .main-col{
-            height: 100%;
-        }
+    html, body{
+        height: 100%;
+        background-color: #9FA8DA;
+        padding: 20px;
+    }
 
-        .main-box {
-            margin: 20px;
-            background-color: white;
-            box-shadow: 5px 5px;
-        }
-        .w-col {
-            height: 27%;
-        }
-        .box-col{
-            
-            margin: auto;
-        }
+    .main-col{
+        height: 100%;
+    }
 
-        #logout {
-            vertical-align: bottom;
-        }
+    .main-box {
+        margin: 20px;
+        background-color: white;
+        box-shadow: 5px 5px;
+    }
+    .w-col {
+        height: 27%;
+    }
+    .box-col{
 
-        i {
-            color: black;
-        }
+        margin: auto;
+    }
 
-        a {
-            text-decoration: none;
-        }
+    #logout {
+        vertical-align: bottom;
+    }
 
-        .redcolor {
-            
-            background-color: #EF5350;
-        }
+    i {
+        color: black;
+    }
 
-        .greencolor {
-            background-color: #8BC34A;
-        }
+    a {
+        text-decoration: none;
+    }
+
+    .redcolor {
+
+        background-color: #EF5350;
+    }
+
+    .greencolor {
+        background-color: #8BC34A;
+    }
 
     </style>
 </head>
@@ -67,167 +67,171 @@
     <% user.firstname = user.firstname[0].toUpperCase() + user.firstname.substring(1, user.firstname.length) %>
     <% user.lastname = user.lastname[0].toUpperCase() + user.lastname.substring(1, user.lastname.length) %>
 
-    <% var link; if(user.stype[0] == 'C') link = '/game/testuser/'; else link = '/game/memorize/'; %> 
+    <% var link; if(user.stype[0] == 'C') link = '/game/cgtest/'; else link = '/game/memorize/'; %> 
 
-    <% if(user.current == 41 && user.practiceRound == false) { %>
-        
-        <div class="modal" ng-class="{'is-active': hidden.practiceModal}">
-            <div class="modal-background"></div>
-            <div class="modal-card">
-                <header class="modal-card-head">
-                    <p class="modal-card-title has-text-centered">Welcome!</p>
-                    <button class="delete" ng-click="cancelPractice()"></button>
-                </header>
-                <section class="modal-card-body has-text-centered">
-                    <p>Welcome, Since you are new to the game, would you like to play a practice round?</p>
-                    <div style="padding: 30px;">
-                        <% if(user.stype[0] !== 'C') { %>
-                            <a class="button is-primary has-text-centered" href="/practice" style="margin: 5px; width: 100px">play</a>
-                        <% } else { %>
-                            <a class="button is-primary has-text-centered" href="/practiceround" style="margin: 5px; width: 100px">play</a>
-                        <% } %>
-                        <a class="button has-text-centered is-danger" ng-click="cancelPractice()" style="margin: 5px;width: 100px">Cancel</a>
-                    </div>
-                </section>
-            </div>
-        </div>
-            
-    <% } %>
+    <% if(user.current == 11 && user.practiceComplete == false) { %>
 
-
-    <div class="modal" ng-class="{'is-active': hidden.hint}">
+    <div class="modal" ng-class="{'is-active': hidden.practiceModal}">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Results</p>
-                <button class="delete" ng-click="closebutton()"></button>
+                <p class="modal-card-title has-text-centered">Welcome!</p>
+                <button class="delete" ng-click="cancelPractice()"></button>
             </header>
-            <section class="modal-card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-
-                            <%var title; if(user.stype[0] == 'C') title = 'Word'; else title = 'Word Pair'; %>
-                            <th>
-                                <%= title %>
-                            </th>
-                            <th>
-                                Solution
-                            </th>
-                            <th>
-                                Time Taken To Answer
-                            </th>
-
-                            <%if(user.stype[0] !== 'C') { %>
-                                <th>
-                                    Hint Used?
-                                </th>
-                            <%} %>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>
-                                Word Pair
-                            </th>
-                            <th>
-                                Solution
-                            </th>
-                            <th>
-                                Time Taken To Answer
-                            </th>
-                            <%if(user.stype[0] !== 'C') { %>
-                                <th>
-                                    Hint Used?
-                                </th>
-                            <%} %>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <tr ng-repeat="wordpair in words">
-                            <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[0]}}</strong></td>
-                            <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[3]}}</strong></td>
-                            <td class="text-center" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[4]}}</strong></td>
-                            <%if(user.stype[0] !== 'C') { %>
-                                <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[5]}}</strong></td>
-                            <%} %>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-            <footer class="modal-card-foot">
-                <p class="text-center" style="color: red">This will show the results of the game you played the first time. You can play the game again for practice but your new answers would not be recorded.</p>
-            </footer>
-        </div>
-    </div>
-
-    <!-- The row has started -->
-    <div class="row main-col">
-
-
-        <!-- The info column has started -->
-        <div class="col-md-3 box" style="margin: 10px; padding: 30px">
-            <h1 class="page-header text-center">Information</h1>
-            
-            <h2>Account Information</h2>
-            <p><strong>Name: </strong><%= user.firstname + ' ' + user.lastname  %></p>
-            <p><strong>Email: </strong><%= user.email  %></p>
-            <p><strong>Category: </strong><%= user.stype  %></p>
-            
-            <hr>
-
-            <h2>Game Details</h2>
-            <p>i'll poop after this. i'll poop after this. i'll poop after this. i'll poop after this. i'll poop after this.i'll poop after this. i'll poop after this.
-            i'll poop after this. i'll poop after this. i'll poop after this. i'll poop after this. i'll poop after this. i'll poop after this. i'll poop after this. 
-            i'll poop after this. i'll poop after this. i'll poop after this. i'll poop after this. i'll poop after this. i'll poop after this. </p>
-
-            <hr>
-
-            <h2>Research Details</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat id a ab illo repellat ipsa nostrum quo ipsam adipisci quasi. Laboriosam ducimus consequatur quaerat minus ab sit voluptatibus obcaecati expedita placeat eligendi, aspernatur beatae corrupti cumque perspiciatis voluptas minima veritatis! Odit earum hic facilis aut minima quae debitis, quia molestiae.</p>
-
-             <br>
-            <div class="text-center is-clearfix">
-                <a class="button is-large is-danger is-fullwidth" id="logout" href="/logout">Logout</a>
-            </div> 
-        </div>
-        <!-- The info column has ended -->
-
-
-
-
-        <!-- The dashboard column has started -->
-        <div class="col-md-8 box text-center main-col" style="margin: 10px;">
-            <h1 class="page-header text-center">Dashboard</h1>
-
-
-
-
-            
-            <div class="columns w-col" style="border-bottom: 1px solid black">
-
-
-                <div class="column box-col">
-                    <h1>Week 1</h1>
-                </div>
-
-
-                <div class="column box-col">
-                    <a class="button is-success is-large" href="<%=link%>11">Game 1</a>
-                    <br>
-                    <% if(user.current >= 12) { %>
-                        <a class="button is-warning" style="margin-top: 10px" ng-click="result11()">Result</a>
+            <section class="modal-card-body has-text-centered">
+                <p>Welcome, Since you are new to the game, would you like to play a practice round?</p>
+                <div style="padding: 30px;">
+                    <% if(user.stype[0] !== 'C') { %>
+                    <a class="button is-primary has-text-centered" href="/game/practiceround" style="margin: 5px; width: 100px">play</a>
+                    <% } else { %>
+                    <a class="button is-primary has-text-centered" href="/game/cgpracticeround" style="margin: 5px; width: 100px">play</a>
                     <% } %>
+                    <a class="button has-text-centered is-danger" ng-click="cancelPractice()" style="margin: 5px;width: 100px">Cancel</a>
                 </div>
+                <p class="control text-center">
+                  <label class="checkbox">
+                    <input type="checkbox" ng-model="nopractice">
+                    Don't ask me again.
+                </label>
+            </p>
+        </section>
+    </div>
+</div>
+
+<% } %>
 
 
-                <div class="column box-col">
-                    <% var color1; var disabled1; var lock1; if(user.current < 12) {color1 = "is-danger"; disabled1 = 'is-disabled'; lock1='fa fa-lock fa-2x is-overlay';} else {disabled1 = ''; lock1=''; color1 = "is-success"; } %>
-                    <a href="<%=link%>12" class="button <%= color1 %> is-large <%= disabled1 %>">
-                        <i class=" <%= lock1 %> text-center"></i>Game 2</a>
+<div class="modal" ng-class="{'is-active': hidden.hint}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Results</p>
+            <button class="delete" ng-click="closebutton()"></button>
+        </header>
+        <section class="modal-card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <%var title; if(user.stype[0] == 'C') title = 'Word'; else title = 'Word Pair'; %>
+                        <th>
+                            <%= title %>
+                        </th>
+                        <th  style="text-align: center">
+                            Solution
+                        </th>
+                        <th style="text-align: center;">
+                            Time Taken To Answer
+                        </th>
+
+                        <%if(user.stype[0] !== 'C') { %>
+                        <th  style="text-align: center">
+                            Hint Used?
+                        </th>
+                        <%} %>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>
+                            Word Pair
+                        </th>
+                        <th>
+                            Solution
+                        </th>
+                        <th style="text-align: center;">
+                            Time Taken To Answer
+                        </th>
+                        <%if(user.stype[0] !== 'C') { %>
+                        <th  style="text-align: center">
+                            Hint Used?
+                        </th>
+                        <%} %>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="wordpair in words">
+                        <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[0]}}</strong></td>
+                        <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"  style="text-align: center"><strong>{{wordpair[3]}}</strong></td>
+                        <td class="text-center" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[4]}}</strong></td>
+                        <%if(user.stype[0] !== 'C') { %>
+                        <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}" style="text-align: center;"><strong>{{wordpair[5]}}</strong></td>
+                        <%} %>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <footer class="modal-card-foot">
+            <p class="text-center" style="color: red">This will show the results of the game you played the first time. You can play the game again for practice but your new answers would not be recorded.</p>
+        </footer>
+    </div>
+</div>
+
+<!-- The row has started -->
+<div class="row main-col">
+
+
+    <!-- The info column has started -->
+    <div class="col-md-3 box" style="margin: 10px; padding: 30px">
+        <h1 class="page-header text-center">Information</h1>
+
+        <h2>Account Information</h2>
+        <p><strong>Name: </strong><%= user.firstname + ' ' + user.lastname  %></p>
+        <p><strong>Email: </strong><%= user.email  %></p>
+        <p><strong>Category: </strong><%= user.stype  %></p>
+
+        <hr>
+
+        <h2>Game Details</h2>
+        <p>Rewind-Remind is a cognitive training tool that is based on research and can be played anywhere! Thank you for playing Rewind-Remind -- we greatly value your participation and input!</p>
+
+        <hr>
+
+        <h2>Research Details</h2>
+        <p>The Rewind-Remind research team consists of Cheryl Abellanoza (cognitive neuroscience PhD student, principal investigator), Dora Toutountzi (computer science PhD student, principal investigator), and Arnav Garg (computer science undergraduate student, lead game designer).  Our goal for this game is to use experimental methods from cognitive research, as well as current human-computer interaction design principles, to develop a useful tool that strengthen memory.</p>
+
+        <br>
+        <div class="text-center is-clearfix">
+            <a class="button is-large is-danger is-fullwidth" id="logout" href="/logout">Logout</a>
+        </div> 
+    </div>
+    <!-- The info column has ended -->
+
+
+
+
+    <!-- The dashboard column has started -->
+    <div class="col-md-8 box text-center main-col" style="margin: 10px;">
+        <h1 class="page-header text-center">Dashboard</h1>
+
+
+
+
+
+        <div class="columns w-col" style="border-bottom: 1px solid black">
+
+
+            <div class="column box-col">
+                <h1>Week 1</h1>
+            </div>
+
+
+            <div class="column box-col">
+                <a class="button is-success is-large" href="<%=link%>11">Game 1</a>
+                <br>
+                <% if(user.current >= 12) { %>
+                <a class="button is-warning" style="margin-top: 10px" ng-click="result11()">Result</a>
+                <% } %>
+            </div>
+
+
+            <div class="column box-col">
+                <% var color1; var disabled1; var lock1; if(user.current < 12) {color1 = "is-danger"; disabled1 = 'is-disabled'; lock1='fa fa-lock fa-2x is-overlay';} else {disabled1 = ''; lock1=''; color1 = "is-success"; } %>
+                <a href="<%=link%>12" class="button <%= color1 %> is-large <%= disabled1 %>">
+                    <i class=" <%= lock1 %> text-center"></i>Game 2</a>
                     <br>
                     <% if(user.current >= 13) { %>
-                        <a class="button is-warning" style="margin-top: 10px" ng-click="result12()">Result</a>
+                    <a class="button is-warning" style="margin-top: 10px" ng-click="result12()">Result</a>
                     <% } %>
                 </div>
 
@@ -237,7 +241,7 @@
                     <a href="<%=link%>13" class="button is-large <%= color2 %> <%= disabled2 %>"><i class=" <%= lock2 %> text-center"></i>Game 3</a>
                     <br>
                     <% if(user.current >= 21) { %>
-                        <a class="button is-warning" style="margin-top: 10px" ng-click="result13()">Result</a>
+                    <a class="button is-warning" style="margin-top: 10px" ng-click="result13()">Result</a>
                     <% } %>
                 </div>
 
@@ -261,7 +265,7 @@
                     <a href="<%=link%>21" class="button <%= color3 %> is-large <%= disabled3 %>"><i class="text-center <%= lock3 %>"></i>Game 1</a>
                     <br>
                     <% if(user.current >= 22) { %>
-                        <a class="button is-warning" style="margin-top: 10px" ng-click="result21()">Result</a>
+                    <a class="button is-warning" style="margin-top: 10px" ng-click="result21()">Result</a>
                     <% } %>
                 </div>
 
@@ -271,7 +275,7 @@
                     <a href="<%=link%>22" class="button <%= color4 %> is-large <%= disabled4 %>"><i class="text-center <%= lock4 %>"></i>Game 2</a>
                     <br>
                     <% if(user.current >= 23) { %>
-                        <a class="button is-warning" style="margin-top: 10px" ng-click="result22()">Result</a>
+                    <a class="button is-warning" style="margin-top: 10px" ng-click="result22()">Result</a>
                     <% } %>
                 </div>
 
@@ -281,7 +285,7 @@
                     <a href="<%=link%>23" class="button <%= color5 %> is-large <%= disabled5 %>"><i class="text-center <%= lock5 %>"></i>Game 3</a>
                     <br>
                     <% if(user.current >= 31) { %>
-                        <a class="button is-warning" style="margin-top: 10px" ng-click="result23()">Result</a>
+                    <a class="button is-warning" style="margin-top: 10px" ng-click="result23()">Result</a>
                     <% } %>
                 </div>
 
@@ -303,7 +307,7 @@
                     <a href="<%=link%>31" class="button <%= color6 %> is-large <%= disabled6 %>"> <i class="text-center <%= lock6 %>"></i>Game 1</a>
                     <br>
                     <% if(user.current >= 32) { %>
-                        <a class="button is-warning" style="margin-top: 10px" ng-click="result31()">Result</a>
+                    <a class="button is-warning" style="margin-top: 10px" ng-click="result31()">Result</a>
                     <% } %>
                 </div>
 
@@ -313,7 +317,7 @@
                     <a href="<%=link%>32" class="button <%= color7 %> is-large <%= disabled7 %>"><i class="text-center <%= lock7 %>"></i>Game 2</a>
                     <br>
                     <% if(user.current >= 33) { %>
-                        <a class="button is-warning" style="margin-top: 10px" ng-click="result32()">Result</a>
+                    <a class="button is-warning" style="margin-top: 10px" ng-click="result32()">Result</a>
                     <% } %>
                 </div>
 
@@ -323,7 +327,7 @@
                     <a href="<%=link%>33" class="button <%= color8 %> is-large <%= disabled8 %>"><i class="text-center <%= lock8 %>"></i>Game 3</a>
                     <br>
                     <% if(user.current >= 41) { %>
-                        <a class="button is-warning" style="margin-top: 10px" ng-click="result33()">Result</a>
+                    <a class="button is-warning" style="margin-top: 10px" ng-click="result33()">Result</a>
                     <% } %>
                 </div>
 
@@ -336,12 +340,12 @@
 
 
     </div> <!-- The row has ended -->     
-   
+
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>
-        particlesJS.load('particles-js', '../bower_components/particles.js/demo/particles.json', function() {
-          console.log('callback - particles.js config loaded');
-        });
+    particlesJS.load('particles-js', '../bower_components/particles.js/demo/particles.json', function() {
+      console.log('callback - particles.js config loaded');
+  });
     </script>
 </body>
 </html>

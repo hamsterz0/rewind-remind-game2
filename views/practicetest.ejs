@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>Rewind-Remind Game</title>
 	<script src="../../bower_components/angular/angular.min.js"></script>
-	<script src="../../assets/js/angular/gametestuser.js"></script>
+	<script src="../../assets/js/angular/practicetest.js"></script>
 	<script src="../../bower_components/particles.js/particles.min.js"></script>
     <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
 	<link href="../../bower_components/bulma/css/bulma.css" rel="stylesheet"></link>
@@ -16,7 +16,7 @@
 
 	<script>
 		x = "<%= user.current %>";
-		userplaying = "<%= wg %>";	
+		up = "<%= wg %>";
 	</script>
 
 	<style>
@@ -97,37 +97,93 @@
 
 
 
-<body ng-app="cgApp" ng-controller="cgcontroller">
+<body ng-app="myGameTestApp" ng-controller="gameTestController">
 
-	<div  id="particles-js" style="height: 100%">
+	<div class="modal" ng-class="{'is-active': hidden.hint}" >
+		<div class="modal-background"></div>
+		<div class="modal-content">
+			<div class="modal-card">
+			    <header class="modal-card-head">
+			      	<p class="modal-card-title text-center">Hints</p>
+			      	<button class="delete" ng-click="modalClose()"></button>
+			    </header>
+			    <section class="modal-card-body">
+					<table class="table">
+						<thead class="has-text-centered">
+							<tr class="has-text-centered">
+								<th class="has-text-centered" >Word1</th>
+								<th class="has-text-centered" >Word2</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th class="text-center" >Word1</th>
+								<th class="text-center" >Word2</th>
+							</tr>
+						</tfoot>
+
+						<tbody>
+							<tr ng-repeat="words in hintsolutions">
+								<td >{{words[0]}}</td>
+								<td  >{{words[1]}}</td>
+							</tr>
+						</tbody>
+					</table>
+			    </section>
+
+			    <footer class="modal-card-foot text-center">
+			    	<h1 class="text-center" style="padding-left: 41%;font-size: 1em">Timer: {{hintTimer}} seconds</h1>
+			    </footer>
+		 	</div>
+		</div>
+		<button class="modal-close" ng-click="modalClose()"></button>
+	</div>
+
+
+
+	<div id="particles-js" style="height: 100%">
 		<div id="outPopUp">
 
+			<div ng-show="hidden.information" class="containerText">
+				<h1 class="text-center" style="font-size: 1.5em; padding: 15px;">In this section please tell if the two words (that you memorized in the previous section) are pairs. If you are unsure if the words are pairs are not, you can click on the hint button to 
+					check the pairs . Click on the button below when you feel you are ready.</h1>
+
+
+				<div class="container text-center" style="margin: 0 auto">
+					<button class="button is-primary is-medium" ng-click="beginTest()" style="margin-top: 50px">Begin Test</button>
+				</div>
+
+
+			</div>
 
 
 
-
-
-
-			<div class="containerText" ng-show="hidden.game">
+			<div ng-show="hidden.gametest" class="containerText">
 				
-				<h1 class="text-center word page-header" style="margin-top: 30px;">Type the word given below</h1>
+				<h1 class="text-center word page-header" style="margin-top: 30px;">Are the words a pair?</h1>
 				
 				<div class="row row-padding" style="margin-top: 50px">
 
-					<div class="col-lg-12">
-						<p class="word text-center">{{word}}</p>
+
+					<div class="col-lg-6">
+						<p class="word pull-right">{{ word1 }}</p>
 					</div>
 
+					<div class="col-lg-6">
+						<p class="word pull-left">{{ word2 }}</p>
+					</div>
+
+
 				</div>
+				<br><br><br>
 
-				<br>
-
-				<div class="container text-center" style="margin: 0 auto; width: 50%">
-					<input id="textinput" class="input is-success is-medium text-center" ng-model="userinput"></input>
+				<div class="container text-center" style="margin: 0 auto">
+					<button id="yesbutton" class="button is-success is-medium" ng-click="yesPressed()"><i class="fa fa-check" style="margin-right: 5px;"></i>Yes</button>
+					<button id="nobutton" class="button is-danger is-medium" ng-click="noPressed()"><i class="fa fa-times" style="margin-right: 5px;"></i>No</button>
 				</div>
 
 				<div class="container text-center" style="margin: 0 auto; width: 600px; margin-top: 50px">
-					<button class="button is-warning is-medium is-fullwidth" ng-click="nextquestion()">next</button>
+					<button class="button is-warning is-medium is-fullwidth" ng-click="hintButton()">Hint</button>
 					<h1 style="margin-top: 50px; font-size: 1.3em">Timer: {{questionTimer}} seconds</h1>
 				</div>
 
@@ -135,19 +191,9 @@
 				<br>
 			</div>
 
-
-
-
-
-
-
 			<div ng-show="hidden.answerresult" class="containerText">
 				<h1 class="text-center animated tada" style="font-size: 4em; padding: 15px;" ng-class="{greencolor: answerresult == 'Correct!', redcolor: answerresult == 'Wrong!'}">{{answerresult}}</h1>
 			</div>
-
-
-
-
 
 
 			<div ng-show="hidden.endgame" class="containerText">
@@ -157,12 +203,10 @@
 				<div class="container text-center" style="margin: 0 auto">
 					<button class="button is-primary is-medium" ng-click="dashboard()" style="margin-top: 50px">Back to dashboard</button>
 				</div>
+
+
 			</div>
 			
-
-
-
-
 
 		</div>
 	</div>

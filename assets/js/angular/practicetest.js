@@ -38,7 +38,7 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 
 		$http({
-			url: '/game/gettestwords',
+			url: '/game/getpracticetestwords',
 			method: 'GET',
 			params: {usercurrent: usercurrent}
 		}).then(function success(res) {
@@ -46,7 +46,7 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 			questions = res.data;
 
 			$http({
-				url: '/game/getwords',
+				url: '/game/getpracticewords',
 				method: 'GET',
 				params: {usercurrent: usercurrent}
 			}).then(function success(res) {
@@ -80,16 +80,16 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 					if(usercurrent[1] == 3) {}
 
-					$scope.endtext = "Thank you for playing. You have " + gamesleft + " more games left to complete this week.";
+					$scope.endtext = "You have completed the practice round.";
 					
 				} else {
 					gamesleft = 4 - usercurrent[1];
 
 					if(userplaying[0] < usercurrent[0]) {
-						$scope.endtext = "Thank you for playing. You have no more games to complete this week.";
+						$scope.endtext = "You have completed the practice round.";
 					}
 
-					$scope.endtext = "Thank you for playing. You have " + gamesleft + " more games left to complete this week."
+					$scope.endtext = "You have completed the practice round."
 				}
 								
 
@@ -210,32 +210,20 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 			$scope.dashboard = function() {
 
-				if(userplaying != usercurrent) {
-
-					$window.location.href = '/dashboard';
-				} else {
-					if(usercurrent[1] == 3 ) {
-						usercurrent = parseInt(usercurrent) + 8;
-					} else {
-
-						usercurrent = parseInt(usercurrent) + 1;
+				$http({
+					url: '/game/practiceend',
+					method: 'POST',
+					data: {
+						usercurrent: usercurrent,
+						userresult: userdata
 					}
+				}).then(function success(res) {
 
-					$http({
-						url: '/game/end',
-						method: 'POST',
-						data: {
-							usercurrent: usercurrent,
-							userresult: userdata
-						}
-					}).then(function success(res) {
+					$window.location.href = '/dashboard'
+				}, function error(err) {
+					console.log(err.data);
+				});
 
-						$window.location.href = '/dashboard'
-					}, function error(err) {
-						console.log(err.data);
-					});
-
-				}
 				
 			}
 

@@ -77,7 +77,9 @@ app.controller('cgcontroller', function($scope, $http, $interval, $window, $loca
 		}
 		//----------------------------------------------------
 
-		$scope.word = questions[counter][0];
+		$scope.word1 = questions[counter][0];
+		$scope.word2 = questions[counter][1];
+		$scope.word3 = questions[counter][Math.random() < 0.5 ? 0:1];
 
 		startQuestionTimer();
 
@@ -108,7 +110,7 @@ app.controller('cgcontroller', function($scope, $http, $interval, $window, $loca
 
 		$scope.nextquestion = function() {
 
-			if($scope.userinput.toLowerCase() === $scope.word.toLowerCase()) {
+			if($scope.userinput.toLowerCase() === $scope.word3.toLowerCase()) {
 				userdata.correctAnswers.push(1);
 				answerview('Correct!');
 			} else {

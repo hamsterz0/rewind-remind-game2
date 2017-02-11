@@ -8,14 +8,13 @@ var express         = require('express'),
     crypto          = require('crypto'),
     nodemailer      = require('nodemailer'),
     UAParser        = require('ua-parser-js');
-    
-
 
 //configuration
 var port = process.env.PORT || 3000;
 var algorithm       = 'aes-256-ctr',
-    password        = 'd6F3Efeq';;
-mongoose.connect('mongodb://localhost/rewind-remind');
+    password        = 'd6F3Efeq';
+
+mongoose.connect('mongodb://heracleians:blackcatpassillusion1@ds149069.mlab.com:49069/rewind-remind');
 app.set('view engine', 'ejs');
 
 
@@ -33,18 +32,6 @@ function decrypt(text){
   return dec;
 }
 
-//middleware
-// app.use(function(req, res, next) {
-//     var parser = new UAParser();
-//     var ua = req.headers['user-agent'];
-//     var browserName = parser.setUA(ua).getBrowser().name;
-
-//     if(browserName == 'Firefox') {
-//         res.render('sorryFirefox.ejs');
-//     }
-
-//     next();
-// });
 app.use(bodyParser());
 app.use('/bower_components',express.static(path.join(__dirname+'/bower_components')));
 app.use('/assets',express.static(path.join(__dirname+'/assets')));
@@ -52,6 +39,7 @@ app.use(session({
     cookieName: 'session',
     secret: 'some_long_random_string'
 }));
+
 app.use(function(req, res, next) {
     if(req.session && req.session.user) {
         
@@ -75,7 +63,6 @@ app.use(function(req, res, next) {
                         req.session.user = req.user.email;
                         res.locals.user = req.user;
                     }
-                    res.app.locals.week1 = 'Hello';
                     next();
 
                 });
@@ -167,13 +154,28 @@ function gameCurrentStage4CG(req, res, next) {
     next();
 }
 
-function sorryFirefoxUsers(req, res, next) {
-    
+function practiceRoundValid(req, res, next) {
+
 }
 
-//routes
+function practiceRoundValid4CG(req, res, next) {
 
-//-------------GET REQUESTS--------------------
+}
+
+//                          ROUTES
+
+
+
+/*
+
+    GET REQUESTS
+
+
+*/
+
+
+
+
 app.get('/', function(req, res) {
     res.redirect('/welcome');
 });
@@ -203,6 +205,7 @@ app.get('/dashboard', requireLogin, completionEmail, function(req, res) {
 app.get('/retrievepass', function(req, res) {
     res.render('retrievepass.ejs');
 });
+
 app.get('/game/memorize/:id', requireLogin, gameCurrentStage, function(req, res) {
     res.render('game.ejs', {wg: req.params.id});
 });
@@ -213,9 +216,9 @@ app.get('/game/test/:id', requireLogin, function(req, res) {
 });
 
 
-app.get('/game/testuser/:id', requireLogin, controlgroupusers, gameCurrentStage4CG, function(req, res) {
+app.get('/game/cgtest/:id', requireLogin, controlgroupusers, gameCurrentStage4CG, function(req, res) {
     
-    res.render('gametestuser.ejs', {wg: req.params.id});
+    res.render('cg_gametest.ejs', {wg: req.params.id});
 });
 
 
@@ -275,18 +278,62 @@ app.get('/game/results', requireLogin, function(req, res) {
     });
 });
 
-app.get('/practice', requireLogin, function(req, res) {
+app.get('/game/practiceround', requireLogin, function(req, res) {
 
-    res.render('game.ejs', {practice: true});
+    res.render('practiceround.ejs', {wg: req.params.id});
 });
 
-app.get('/practiceround', requireLogin, function(req, res) {
+app.get('/game/practicetest', requireLogin, function(req, res) {
 
-    res.render('practiceround.ejs');
+    res.render('practicetest.ejs', {wg: req.params.id});
+})
+
+app.get('/game/getpracticewords', requireLogin, function(req, res) {
+
+    models.words.find({}, {memorizewords:1, _id:0}).then(function success(response) {
+
+        var words = response[0].memorizewords;
+        var userwords = words.practiceRound;
+
+        return res.json(userwords);
+
+    }).catch(function(err) {
+
+    });
 });
 
+app.get('/game/getpracticetestwords', requireLogin, function(req, res) {
 
-//----------------POST REQUESTS--------------------
+    models.words.find({}, {testwords:1, _id: 0}).then(function success(response) {
+
+        
+        var words = response[0].testwords;
+        var userwords = words.practiceRound;
+
+        return res.json(userwords);
+    }).catch(function(err) {
+        
+    });
+});
+
+app.get('/game/cgpracticeround', function(req, res) {
+
+    res.render('cg_practiceround.ejs', {wg: req.params.id});
+})
+
+
+/*
+
+
+        POST REQUESTS
+
+
+
+*/
+
+
+
+
 app.post('/register', function(req, res) {
 
     models.stype.findOne({
@@ -325,46 +372,6 @@ app.post('/register', function(req, res) {
                 data.CGY += 1;
             }
         }
-
-        // if(data.DE > data.SGE) {
-        //     req.body.stype = 'SGE';
-        //     data.SGE += 1;
-        //     if(age > 50) {
-        //         data.SGEO += 1;
-        //     } else {
-        //         data.SGEY += 1;
-        //     }
-        // } else if(data.SGE > data.DE){
-        //     req.body.stype = 'DE';
-        //     data.DE += 1;
-        //     if(age > 50) {
-        //         data.DEO += 1;
-        //     } else {
-        //         data.DEY += 1;
-        //     }
-        // } else {
-        //     if(age < 50) {
-        //         if(data.DEY >= data.SGEY) {
-        //             req.body.stype = 'SGE';
-        //             data.SGEY += 1;
-        //             data.SGE += 1;
-        //         } else {
-        //             req.body.stype = 'DE';
-        //             data.DE += 1;
-        //             data.DEY += 1;
-        //         }
-        //     } else {
-        //          if(data.DEO >= data.SGEO) {
-        //             req.body.stype = 'SGE';
-        //             data.SGEO += 1;
-        //             data.SGE += 1;
-        //         } else {
-        //             req.body.stype = 'DE';
-        //             data.DE += 1;
-        //             data.DEO += 1;
-        //         }
-        //     }
-        // }
 
         models.stype.update({_id: data._id}, {
             $set: {
@@ -429,7 +436,6 @@ app.post('/game/end', function(req, res) {
     }).then(function(userplayerdata) {
 
         var current = req.user.current.toString();
-        console.log(current);
         var week = 'week' + current[0];
         var game = 'game' + current[1];
 
@@ -443,9 +449,12 @@ app.post('/game/end', function(req, res) {
 
             models.auth.update({_id: req.user._id}, {
                 $set: {
-                    current: req.body.usercurrent
+                    current: req.body.usercurrent,
+                    practiceComplete: true
                 }
             }, function(err, result) {
+
+
                 res.redirect('/dashboard');    
             });
         });
@@ -454,51 +463,21 @@ app.post('/game/end', function(req, res) {
         console.log('ERROR IN GAME END: ' + err);
     });
 
-    // //updating the database
-    // models.auth.update({_id: req.user._id}, {
-    //     $set: {
-    //         current: req.body.usercurrent
-    //     }
-    // }, function(err, result) {
+});
 
-    //     if(req.body.usercurrent[0] == '4') {
+app.post('/game/practiceend', function(req, res) {
 
-    //         res.redirect('/dashboard');
+    models.auth.update({
+        email: req.user.email
+    }, {
+        $set: {
+            practiceComplete: true
+        }
+    }, function(err, result) {
 
-    //     } else {
-
-    //         models.playerdata.findOne({
-    //             userID: req.user._id
-    //         }).then(function(userplayerdata) {
-
-    //             console.log(userplayerdata);
-
-    //             var current = req.body.usercurrent.toString();
-    //             console.log(current);
-    //             var week = 'week' + current[0];
-    //             var game = 'game' + current[1];
-
-    //             userplayerdata.gameresults[week][game] = req.body.userresult;
-
-    //             console.log(userplayerdata.gameresults);
-
-    //             models.playerdata.update({userID: req.user._id}, {
-    //                 $set: {
-    //                     gameresults: userplayerdata.gameresults
-    //                 }
-    //             }, function(err, result) {
-
-    //                 res.redirect('/dashboard');
-    //             });
-
-    //         }).catch(function(err) {
-    //             console.log('ERROR IN GAME END: ' + err);
-    //         });
-    //     }
-
-       
-    // });
-
+        console.log(result);
+        res.redirect('/dashboard');
+    })
 });
 
 app.post('/login', function(req, res) {
@@ -536,7 +515,7 @@ app.post('/retrievepass', function(req, res) {
                     pass: 'blackcatpassillusion'
                 }
             });
-            var text = "Hello " + user.firstname + ", \nThe password to your account has been provided below.\n " + 
+            var text = "Hello " + user.firstname + ", \nThe password to your account is provided below.\n" + 
                    "For any further questions, please contact Arnav Garg at arnav.garg@mavs.uta.edu\n\n" + "Your password is: " + decrypt(user.password);
             var mailOptions = {
                 from: 'thearnavgarg@gmail.com',
@@ -587,8 +566,6 @@ app.post('/practiceComplete', function(req, res) {
 
     res.redirect('/dashboard');
 });
-
-
 
 
 app.listen(port,function() {   

@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 var wordsSchema = mongoose.Schema({
 
     memorizewords: {
+
+        practiceRound: [],
         w1: {
             g1: [],
             g2: [],
@@ -21,6 +23,8 @@ var wordsSchema = mongoose.Schema({
     },
 
     testwords: {
+        
+        practiceRound: [],
         w1: {
             g1: [],
             g2: [],

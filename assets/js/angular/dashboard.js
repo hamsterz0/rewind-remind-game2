@@ -11,6 +11,15 @@ app.controller('dashboardController', function($scope, $http) {
 	$scope.cancelPractice = function() {
 
 		$scope.hidden.practiceModal = false;
+		if ($scope.nopractice) {
+			
+			$http({
+				url: '/game/practiceend',
+				method: 'POST'
+			}).then(function(res) {
+			}).catch(function(err) {
+			});
+		}
 	}
 
 	$http({
@@ -322,7 +331,9 @@ app.controller('dashboardController', function($scope, $http) {
 		});
 
 
-	}, function error(err) {
 
-	});
+
+}, function error(err) {
+
+});
 });
