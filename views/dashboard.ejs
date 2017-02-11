@@ -79,12 +79,12 @@
                 <button class="delete" ng-click="cancelPractice()"></button>
             </header>
             <section class="modal-card-body has-text-centered">
-                <p>Welcome, Since you are new to the game, would you like to play a practice round?</p>
+                <p>Welcome, since you are new to the game, would you like to play a practice round?</p>
                 <div style="padding: 30px;">
                     <% if(user.stype[0] !== 'C') { %>
-                    <a class="button is-primary has-text-centered" href="/game/practiceround" style="margin: 5px; width: 100px">play</a>
+                    <a class="button is-primary has-text-centered" href="/game/practiceround" style="margin: 5px; width: 100px">Play</a>
                     <% } else { %>
-                    <a class="button is-primary has-text-centered" href="/game/cgpracticeround" style="margin: 5px; width: 100px">play</a>
+                    <a class="button is-primary has-text-centered" href="/game/cgpracticeround" style="margin: 5px; width: 100px">Play</a>
                     <% } %>
                     <a class="button has-text-centered is-danger" ng-click="cancelPractice()" style="margin: 5px;width: 100px">Cancel</a>
                 </div>
