@@ -120,7 +120,7 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 					$scope.questionTimer++;
 
 
-				}, 1000);
+				}, 1);
 			}
 
 			function stopQuestionTimer() {
@@ -143,7 +143,7 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 				hintTimerInterval = $interval(function() {
 
 					$scope.hintTimer++;
-				}, 1000);
+				}, 1);
 			}
 
 			function stopHintTimer() {
