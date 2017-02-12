@@ -14,6 +14,8 @@ app.controller('gameController', function($scope, $http, $window, $timeout) {
 
 	var phrases = [];
 
+	console.log(usercurrent);
+
 	$http({
 			url: '/game/getwords',
 			method: 'GET',

@@ -238,8 +238,8 @@ app.get('/game/getwords', requireLogin, gameCurrentStage, function(req, res) {
 
     var current = req.query.usercurrent;
 
-    var week = 'w' + 1;
-    var game = 'g' + 1;
+    var week = 'w' + current[0];
+    var game = 'g' + current[1];
 
     models.words.find({}, {memorizewords:1, _id: 0}).then(function success(response) {
 
@@ -262,8 +262,8 @@ app.get('/game/gettestwords', requireLogin, function(req, res) {
         return res.json(words);
     }
 
-    var week = 'w' + 1;
-    var game = 'g' + 1;
+    var week = 'w' + current[0];
+    var game = 'g' + current[1];
 
     models.words.find({}, {testwords:1, _id: 0}).then(function success(response) {
 
