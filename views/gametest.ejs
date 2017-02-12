@@ -101,7 +101,6 @@
 
 	<div class="modal" ng-class="{'is-active': hidden.hint}" >
 		<div class="modal-background"></div>
-		<div class="modal-content">
 			<div class="modal-card">
 			    <header class="modal-card-head">
 			      	<p class="modal-card-title text-center">Hints</p>
@@ -109,33 +108,32 @@
 			    </header>
 			    <section class="modal-card-body">
 					<table class="table">
-						<thead class="has-text-centered">
-							<tr class="has-text-centered">
-								<th class="has-text-centered" >Word1</th>
-								<th class="has-text-centered" >Word2</th>
+						<thead>
+							<tr>
+								<th>Word1</th>
+								<th>Word2</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th class="text-center" >Word1</th>
-								<th class="text-center" >Word2</th>
+								<th>Word1</th>
+								<th>Word2</th>
 							</tr>
 						</tfoot>
 
 						<tbody>
 							<tr ng-repeat="words in hintsolutions">
-								<td >{{words[0]}}</td>
-								<td  >{{words[1]}}</td>
+								<td>{{words[0]}}</td>
+								<td>{{words[1]}}</td>
 							</tr>
 						</tbody>
 					</table>
 			    </section>
 
 			    <footer class="modal-card-foot text-center">
-			    	<h1 class="text-center" style="padding-left: 41%;font-size: 1em">Timer: {{hintTimer}} seconds</h1>
+			    	<h1 class="text-center" style="padding-left: 41%;font-size: 1em">Timer: {{hintTimer}} milliseconds</h1>
 			    </footer>
 		 	</div>
-		</div>
 		<button class="modal-close" ng-click="modalClose()"></button>
 	</div>
 
@@ -184,7 +182,7 @@
 
 				<div class="container text-center" style="margin: 0 auto; width: 600px; margin-top: 50px">
 					<button class="button is-warning is-medium is-fullwidth" ng-click="hintButton()">Hint</button>
-					<h1 style="margin-top: 50px; font-size: 1.3em">Timer: {{questionTimer}} seconds</h1>
+					<h1 style="margin-top: 50px; font-size: 1.3em">Timer: {{questionTimer}} milliseconds</h1>
 				</div>
 
 				<br>

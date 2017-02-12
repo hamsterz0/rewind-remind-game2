@@ -152,7 +152,6 @@ app.controller('cgcontroller', function($scope, $http, $interval, $window, $loca
 
 					$window.location.href = '/dashboard'
 				}, function error(err) {
-					console.log(err.data);
 				});
 
 			}

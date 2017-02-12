@@ -229,13 +229,8 @@ app.controller('gameTestController', function($scope, $http, $interval, $window,
 
 			var answerview = function(result) {
 
-				console.log('answerview called');
-
 				$scope.hidden.gametest = false;
 				$scope.hidden.answerresult = true;
-
-
-				console.log('timeout is working');
 				$scope.answerresult = result;
 				
 			}

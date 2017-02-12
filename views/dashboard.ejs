@@ -151,7 +151,11 @@
                 </tfoot>
                 <tbody>
                     <tr ng-repeat="wordpair in words">
-                        <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[0]}}</strong></td>
+                        <% if(user.stype[0] == 'C') { %>
+                            <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[0]}}</strong></td>
+                        <% } else { %>
+                            <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[0]}} - {{wordpair[1]}}</strong></td>
+                        <% } %>
                         <td class="" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"  style="text-align: center"><strong>{{wordpair[3]}}</strong></td>
                         <td class="text-center" ng-class="{redcolor: wordpair[3] == 'wrong', greencolor: wordpair[3] == 'right'}"><strong>{{wordpair[4]}}</strong></td>
                         <%if(user.stype[0] !== 'C') { %>

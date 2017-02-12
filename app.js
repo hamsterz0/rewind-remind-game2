@@ -258,10 +258,6 @@ app.get('/game/gettestwords', requireLogin, function(req, res) {
 
     var current = req.query.usercurrent;
 
-    if(current === 1000) {
-        return res.json(words);
-    }
-
     var week = 'w' + current[0];
     var game = 'g' + current[1];
 
@@ -270,6 +266,10 @@ app.get('/game/gettestwords', requireLogin, function(req, res) {
         
         var words = response[0].testwords;
         var userwords = words[week][game]
+
+        if(current === '1000') {
+            return res.json(words);
+        }
 
         return res.json(userwords);
     }).catch(function(err) {

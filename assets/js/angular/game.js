@@ -13,9 +13,6 @@ app.controller('gameController', function($scope, $http, $window, $timeout) {
 	$scope.buttonTitle = "Next Set";
 
 	var phrases = [];
-
-	console.log(usercurrent);
-
 	$http({
 			url: '/game/getwords',
 			method: 'GET',
@@ -35,9 +32,6 @@ app.controller('gameController', function($scope, $http, $window, $timeout) {
 				phrases.push($scope.userinput);
 
 				if(counter == wordList.length) {
-
-					console.log('finished memorizing');
-
 					$http({
 						url: '/game/storingphrases',
 						method: 'POST',
