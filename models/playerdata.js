@@ -7,52 +7,61 @@ var playerDataSchema = mongoose.Schema({
             game1: {
                 questionTime: [],
                 hint: [],
-                correctAnswers: []
+                correctAnswers: [],
+                phrases: []
             },
             game2: {
                 questionTime: [],
                 hint: [],
-                correctAnswers: []
+                correctAnswers: [],
+                phrases: []
             },
             game3: {
                 questionTime: [],
                 hint: [],
-                correctAnswers: []
+                correctAnswers: [],
+                phrases: []
             }
         },
         week2: {
             game1: {
                 questionTime: [],
                 hint: [],
-                correctAnswers: []
+                correctAnswers: [],
+                phrases: []
 
             },
             game2: {
                 questionTime: [],
                 hint: [],
-                correctAnswers: []
+                correctAnswers: [],
+                phrases: []
             },
             game3: {
                 questionTime: [],
                 hint: [],
-                correctAnswers: []
+                correctAnswers: [],
+                phrases: []
             }
         },
         week3: {
             game1: {
                 questionTime: [],
                 hint: [],
-                correctAnswers: []
+                correctAnswers: [],
+                phrases: []
             },
             game2: {
                 questionTime: [],
                 hint: [],
-                correctAnswers: []
+                correctAnswers: [],
+                phrases: []
             },
             game3: {
                 questionTime: [],
                 hint: [],
-                correctAnswers: []
+                correctAnswers: [],
+                phrases: []
             }
         }
     }

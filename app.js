@@ -330,7 +330,7 @@ app.get('/game/getpracticetestwords', requireLogin, function(req, res) {
 app.get('/game/cgpracticeround', function(req, res) {
 
     res.render('cg_practiceround.ejs', {wg: req.params.id});
-})
+});
 
 
 /*
@@ -415,7 +415,7 @@ app.post('/register', function(req, res) {
                     var error = 'Sorry, some internal error has occurred.';
                     
                     if(err.code == 11000) {
-                        error = 'email has alread been taken, please try again.'
+                        error = 'email has already been taken, please try again.'
                     }
                     res.render('register.ejs', {error: error});
                 } else {
@@ -441,6 +441,8 @@ app.post('/register', function(req, res) {
 
 app.post('/game/end', function(req, res) {
 
+    console.log(req.user._id);
+
 
     models.playerdata.findOne({
         userID: req.user._id
@@ -450,7 +452,9 @@ app.post('/game/end', function(req, res) {
         var week = 'week' + current[0];
         var game = 'game' + current[1];
 
-        userplayerdata.gameresults[week][game] = req.body.userresult;
+        userplayerdata.gameresults[week][game].questionTime = req.body.userresult.questionTime;
+        userplayerdata.gameresults[week][game].hint = req.body.userresult.hint;
+        userplayerdata.gameresults[week][game].correctAnswers = req.body.userresult.correctAnswers;
 
         models.playerdata.update({userID: req.user._id}, {
             $set: {
@@ -475,6 +479,32 @@ app.post('/game/end', function(req, res) {
     });
 
 });
+
+app.post('/game/storingphrases', function(req, res) {
+
+     models.playerdata.findOne({
+        userID: req.user._id
+    }).then(function(userplayerdata) {
+
+        var current = req.body.usercurrent.toString();
+        var week = 'week' + current[0];
+        var game = 'game' + current[1];
+
+        userplayerdata.gameresults[week][game].phrases = req.body.phrases;
+
+        models.playerdata.update({userID: req.user._id}, {
+            $set: {
+                gameresults: userplayerdata.gameresults
+            }
+        }, function(err, result) {
+
+            res.redirect('/game/test/' + req.body.usercurrent);
+        });
+
+    }).catch(function(err) {
+        console.log('ERROR IN GAME END: ' + err);
+    });
+})
 
 app.post('/game/practiceend', function(req, res) {
 
@@ -577,7 +607,6 @@ app.post('/practiceComplete', function(req, res) {
 
     res.redirect('/dashboard');
 });
-
 
 app.listen(port,function() {   
     console.log('Listening on port ' + port);
