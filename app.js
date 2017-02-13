@@ -99,7 +99,7 @@ function completionEmail(req, res, next) {
                         pass: 'blackcatpassillusion'
                     }
                 });
-                var text = "Hello " + req.user.firstname + ", \n" + "Thank you for completing the game\n\n Team Heracleia";
+                var text = "Hello " + req.user.firstname + ", \n\n" + "Thank you for completing the Rewind-Remind game. Please make sure you are scheduled for your second testing session at UTA with Cheryl Abellanoza! If you have any questions, please contact her at cheryl.abellanoza@mavs.uta.edu, cheryla@uta.edu, or 469-585-8213.\n\n Team Heracleia";
                 var mailOptions = {
                     from: 'Heracleia Lab',
                     to: emails,
