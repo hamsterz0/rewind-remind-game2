@@ -15,6 +15,8 @@ app.controller('cgcontroller', function($scope, $http, $interval, $window, $loca
 		endgame: false
 	};
 
+	var phrases = [];
+
 	
 
 	var usercurrent = window.x;
@@ -98,7 +100,7 @@ app.controller('cgcontroller', function($scope, $http, $interval, $window, $loca
 				$scope.questionTimer++;
 
 
-			}, 1000);
+			}, 1);
 		}
 
 		function stopQuestionTimer() {
@@ -109,6 +111,8 @@ app.controller('cgcontroller', function($scope, $http, $interval, $window, $loca
 		}
 
 		$scope.nextquestion = function() {
+
+			phrases.push($scope.userinput);
 
 			if($scope.userinput.toLowerCase() === $scope.word3.toLowerCase()) {
 				userdata.correctAnswers.push(1);
@@ -146,7 +150,8 @@ app.controller('cgcontroller', function($scope, $http, $interval, $window, $loca
 					method: 'POST',
 					data: {
 						usercurrent: usercurrent,
-						userresult: userdata
+						userresult: userdata,
+						phrases: phrases
 					}
 				}).then(function success(res) {
 

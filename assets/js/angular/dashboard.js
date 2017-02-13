@@ -59,12 +59,15 @@ app.controller('dashboardController', function($scope, $http) {
 						entry.push("no");
 					}
 
+					entry.push(userresult.phrases[i]);
 					i++;
 				});
 
 				$scope.words.userresult = userresult;
 				$scope.hidden.hint = true;
-				$scope.userresults = $scope.results.gameresults.week1.game1.correctAnswers;			}
+				$scope.userresults = $scope.results.gameresults.week1.game1.correctAnswers;
+			}
+
 
 			$scope.result12 = function() {
 
@@ -89,6 +92,7 @@ app.controller('dashboardController', function($scope, $http) {
 					} else {
 						entry.push("no");
 					}
+					entry.push(userresult.phrases[i]);
 
 					i++;
 				});
@@ -121,6 +125,8 @@ app.controller('dashboardController', function($scope, $http) {
 					} else {
 						entry.push("no");
 					}
+
+					entry.push(userresult.phrases[i]);
 
 					i++;
 				});
@@ -155,6 +161,8 @@ app.controller('dashboardController', function($scope, $http) {
 						entry.push("no");
 					}
 
+					entry.push(userresult.phrases[i]);
+
 					i++;
 				});
 
@@ -186,6 +194,8 @@ app.controller('dashboardController', function($scope, $http) {
 					} else {
 						entry.push("no");
 					}
+
+					entry.push(userresult.phrases[i]);
 
 					i++;
 				});
@@ -219,6 +229,8 @@ app.controller('dashboardController', function($scope, $http) {
 						entry.push("no");
 					}
 
+					entry.push(userresult.phrases[i]);
+
 					i++;
 				});
 
@@ -250,6 +262,8 @@ app.controller('dashboardController', function($scope, $http) {
 					} else {
 						entry.push("no");
 					}
+
+					entry.push(userresult.phrases[i]);
 
 					i++;
 				});
@@ -283,6 +297,8 @@ app.controller('dashboardController', function($scope, $http) {
 						entry.push("no");
 					}
 
+					entry.push(userresult.phrases[i]);
+
 					i++;
 				});
 
@@ -314,6 +330,8 @@ app.controller('dashboardController', function($scope, $http) {
 					} else {
 						entry.push("no");
 					}
+
+					entry.push(userresult.phrases[i]);
 
 					i++;
 				});

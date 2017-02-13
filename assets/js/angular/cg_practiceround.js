@@ -98,7 +98,7 @@ app.controller('cgcontroller', function($scope, $http, $interval, $window, $loca
 				$scope.questionTimer++;
 
 
-			}, 1000);
+			}, 1);
 		}
 
 		function stopQuestionTimer() {

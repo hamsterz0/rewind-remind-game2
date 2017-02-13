@@ -448,6 +448,12 @@ app.post('/game/end', function(req, res) {
         userID: req.user._id
     }).then(function(userplayerdata) {
 
+        var phrases = [];
+
+        if (req.body.phrases) {
+            phrases = req.body.phrases;
+        }
+
         var current = req.user.current.toString();
         var week = 'week' + current[0];
         var game = 'game' + current[1];
@@ -455,6 +461,7 @@ app.post('/game/end', function(req, res) {
         userplayerdata.gameresults[week][game].questionTime = req.body.userresult.questionTime;
         userplayerdata.gameresults[week][game].hint = req.body.userresult.hint;
         userplayerdata.gameresults[week][game].correctAnswers = req.body.userresult.correctAnswers;
+        userplayerdata.gameresults[week][game].phrases = phrases
 
         models.playerdata.update({userID: req.user._id}, {
             $set: {
@@ -468,7 +475,6 @@ app.post('/game/end', function(req, res) {
                     practiceComplete: true
                 }
             }, function(err, result) {
-
 
                 res.redirect('/dashboard');    
             });
