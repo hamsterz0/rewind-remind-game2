@@ -88,9 +88,9 @@ function completionEmail(req, res, next) {
                     completionEmail: true
                 }
             }, function(err, result) {
-                var rEmail1 = 'thearnavgarg@gmail.com';
+                var rEmail = 'thearnavgarg@gmail.com, cherylabellanoza@gmail.com';
 
-                var emails = req.user.email + ', '+ rEmail1; 
+                var emails = req.user.email + ', '+ rEmail; 
 
                 var transporter = nodemailer.createTransport({
                     service: 'Gmail',
@@ -99,7 +99,7 @@ function completionEmail(req, res, next) {
                         pass: 'blackcatpassillusion'
                     }
                 });
-                var text = "Hello " + req.user.firstname + ", \n" + "Thank you for completing the game";
+                var text = "Hello " + req.user.firstname + ", \n" + "Thank you for completing the game\n\n Team Heracleia";
                 var mailOptions = {
                     from: 'Heracleia Lab',
                     to: emails,
